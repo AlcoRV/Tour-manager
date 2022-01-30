@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Tour_agency
@@ -20,50 +19,58 @@ namespace Tour_agency
     /// </summary>
     public partial class MainWindow : Window
     {
-        private enum Status { log_in, register }
-        private Status status { get; set; }
+        Dictionary<String, Frame> mainContent;
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
-        private void Register(object sender, RoutedEventArgs e)
-        {
-            SetStatus(Status.register);
-        }
-
-        private void Log_in(object sender, RoutedEventArgs e)
-        {
-            SetStatus(Status.log_in);
-        }
-
-        private void SetStatus(Status status)
-        {
-            if (this.status.Equals(status))
+            mainContent = new Dictionary<String, Frame>();
+            mainContent["awdad"] = new Frame();
+            mainContent["qwerty"] = new Frame();
+            mainContent["awdad"].Content = new Page1();
+            mainContent["qwerty"].Content = new Page2();
+            foreach (var item in yyy.Items)
             {
-                return;
+                ((TabItem)item).GotFocus += ContextMenuOpening;
             }
-            else if (status.Equals(Status.log_in))
+        }
+
+        bool stat;
+
+        private void ContextMenuOpening(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = (TabItem)yyy.SelectedItem;
+            if(tabItem.Content is null)
             {
-                CheckPass.Visibility = Visibility.Collapsed;
-                Email.Visibility = Visibility.Collapsed;
-                btnLogin.FontWeight = FontWeights.Bold;
-                btnRegister.FontWeight = FontWeights.Normal;
-                this.status = Status.log_in;
+                tabItem.Content = mainContent[tabItem.Header.ToString()];
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           /* if (stat)
+            {
+                if(first is null)
+                {
+                    first = new Frame();
+                    first.Content = new Page1();
+                }
+
+                ttt.Content = first;
+                stat = !stat;
+
             }
             else
             {
-                CheckPass.Visibility = Visibility.Visible;
-                Email.Visibility = Visibility.Visible;
-                btnLogin.FontWeight = FontWeights.Normal;
-                btnRegister.FontWeight = FontWeights.Bold;
-                this.status = Status.register;
-            }
+                if (second is null)
+                {
+                    second = new Frame();
+                    second.Content = new Page2();
+                }
+
+                ttt.Content = second;
+                stat = !stat;
+            }*/
         }
     }
 }
