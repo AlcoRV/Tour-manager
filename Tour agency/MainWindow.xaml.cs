@@ -24,18 +24,25 @@ namespace Tour_agency
         public MainWindow()
         {
             InitializeComponent();
+
             mainContent = new Dictionary<String, Frame>();
             mainContent["awdad"] = new Frame();
-            mainContent["qwerty"] = new Frame();
             mainContent["awdad"].Content = new Page1();
+
+            ttt.Content = mainContent["awdad"];
+          
+            mainContent["qwerty"] = new Frame();
+
             mainContent["qwerty"].Content = new Page2();
+
             foreach (var item in yyy.Items)
             {
-                ((TabItem)item).GotFocus += ContextMenuOpening;
+                TabItem tItem = (TabItem)item;
+                tItem.GotFocus += ContextMenuOpening;
+                tItem.Background = Brushes.Transparent;
+                
             }
         }
-
-        bool stat;
 
         private void ContextMenuOpening(object sender, RoutedEventArgs e)
         {
@@ -46,31 +53,19 @@ namespace Tour_agency
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-           /* if (stat)
-            {
-                if(first is null)
-                {
-                    first = new Frame();
-                    first.Content = new Page1();
-                }
+            DragMove();
+        }
 
-                ttt.Content = first;
-                stat = !stat;
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
 
-            }
-            else
-            {
-                if (second is null)
-                {
-                    second = new Frame();
-                    second.Content = new Page2();
-                }
-
-                ttt.Content = second;
-                stat = !stat;
-            }*/
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

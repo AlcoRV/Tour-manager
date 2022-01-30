@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Tour_agency"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page2" Background="Chartreuse" >
+      Title="Page2" Background="Transparent" >
 
     <Grid>
         

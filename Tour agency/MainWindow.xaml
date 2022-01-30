@@ -5,15 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_agency"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" >
-    <Grid>
-        <Button Width="90" VerticalAlignment="Top" Margin="50" Click="Button_Click"/>
+        Title="MainWindow" Height="600" Width="1000" 
+        AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize">
 
-        <Frame x:Name="Main" Margin="0 100 0 0" />
-        <TabControl x:Name="yyy" Margin="0 100 0 0">
-            <TabItem Header="awdad" x:Name="ttt" IsSelected="True" />
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        
+    </Window.Resources>
+    
+    
+    <Grid MouseDown="Grid_MouseDown">
+
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#C6FFDD" Offset="0.0"/>
+                <GradientStop Color="#FBD786" Offset="0.5"/>
+                <GradientStop Color="#f7797d" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <TabControl x:Name="yyy" Background="Transparent">
+            <TabItem Header="awdad" x:Name="ttt" IsSelected="True"/>
             <TabItem Header="qwerty" x:Name="www" IsSelected="False" />
         </TabControl>
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"
+                VerticalAlignment="Top" Margin="0 1 1 0">
+            <Button Height="20" BorderBrush="{x:Null}" Click="MinimizeWindow">
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#a8c0ff" Offset="0.0"/>
+                        <GradientStop Color="#3f2b96" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Height="20" BorderBrush="{x:Null}" Click="CloseWindow">
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#333333" Offset="0.0"/>
+                        <GradientStop Color="#dd1818" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
+
+
 
     </Grid>
 </Window>
