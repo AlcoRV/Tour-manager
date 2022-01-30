@@ -40,11 +40,13 @@ namespace Tour_agency
                 TabItem tItem = (TabItem)item;
                 tItem.GotFocus += ContextMenuOpening;
                 tItem.Background = Brushes.Transparent;
+
                 
+
             }
         }
 
-        private void ContextMenuOpening(object sender, RoutedEventArgs e)
+        private new void ContextMenuOpening(object sender, RoutedEventArgs e)
         {
             TabItem tabItem = (TabItem)yyy.SelectedItem;
             if(tabItem.Content is null)

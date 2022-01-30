@@ -11,13 +11,48 @@
 
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Border"
+                                Margin="2 0" BorderThickness="1 1 1 0" BorderBrush="LightGray"
+                                CornerRadius="5 5 0 0"
+                                >
+                            <ContentPresenter
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                ContentSource="Header" Margin="10 2"
+                                />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#2980B9" Offset="0.0"/>
+                                            <GradientStop Color="#6DD5FA" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Opacity" Value="1"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
         </Style>
+            
+        
         
         
     </Window.Resources>
