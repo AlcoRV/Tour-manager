@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Tour_agency
 {
     /// <summary>
-    /// Логика взаимодействия для Page1.xaml
+    /// Логика взаимодействия для Page2.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class ServicesList : Page
     {
-        public Page1()
+        public ServicesList()
         {
             InitializeComponent();
         }

@@ -26,14 +26,16 @@ namespace Tour_agency
             InitializeComponent();
 
             mainContent = new Dictionary<String, Frame>();
-            mainContent["awdad"] = new Frame();
-            mainContent["awdad"].Content = new Page1();
+            mainContent["Список туров"] = new Frame();
+            mainContent["Список туров"].Content = new ToursList();
 
-            ttt.Content = mainContent["awdad"];
-          
-            mainContent["qwerty"] = new Frame();
+            ttt.Content = mainContent["Список туров"];
+            mainContent["Список туров"].MouseDown -= Grid_MouseDown;
 
-            mainContent["qwerty"].Content = new Page2();
+
+            mainContent["Список услуг"] = new Frame();
+
+            mainContent["Список услуг"].Content = new ServicesList();
 
             foreach (var item in yyy.Items)
             {
@@ -57,7 +59,10 @@ namespace Tour_agency
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)

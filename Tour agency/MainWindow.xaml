@@ -69,8 +69,8 @@
         </Grid.Background>
 
         <TabControl x:Name="yyy" Background="Transparent">
-            <TabItem Header="awdad" x:Name="ttt" IsSelected="True"/>
-            <TabItem Header="qwerty" x:Name="www" IsSelected="False" />
+            <TabItem Header="Список туров" x:Name="ttt" IsSelected="True"/>
+            <TabItem Header="Список услуг" x:Name="www" IsSelected="False" />
         </TabControl>
 
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"
