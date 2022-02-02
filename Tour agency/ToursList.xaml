@@ -8,10 +8,66 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ToursList" Background="Transparent" >
 
-    <Grid>
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
 
-        <DataGrid x:Name="table" ItemsSource="{Binding}"
-                  IsReadOnly="True" />
+
+   
+    
+
+    <Grid Loaded="Grid_Loaded">
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Margin="10" Height="100">
+                <StackPanel Orientation="Vertical" Margin="20 10 20 10" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Страна:"/>
+                        <TextBox Text="qwert" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Город:"/>
+                        <TextBox Text="qwert" Width="200"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="20 10 20 10" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Количество ночей:"/>
+                        <ComboBox x:Name="nights"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Количество человек:"/>
+                        <ComboBox x:Name="men"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="20 0 20 20">
+                    <Label Content="Стоимость:" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="От:"/>
+                        <TextBox Text="gsgseg" Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="До:"/>
+                        <TextBox Text="jjftfj" Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Content="Поиск" Margin="20 0 0 0"/>
+            </StackPanel>
+
+                <DataGrid x:Name="table" ItemsSource="{Binding}"
+                  IsReadOnly="True"/>
+
+        </StackPanel>
 
 
 

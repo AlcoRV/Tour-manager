@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,22 +27,12 @@ namespace Tour_agency
         public ToursList()
         {
             InitializeComponent();
-            FillTable();
-            table.MouseDoubleClick += (sender, e) => {
-                var item = table.SelectedItem;
-                ((DataRowView)item).Row["Номер"] = 50;
-                    
-            };
-            table.AutoGeneratingColumn += (sender, e) =>
-            {
-                if(e.PropertyType == typeof(System.DateTime))
-                {
-                    (e.Column as DataGridTextColumn).Binding.StringFormat = "d";
-                }
-            };
+            
+            nights.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+            men.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6 };
         }
 
-
+        
         private void FillTable()
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
@@ -63,6 +55,24 @@ namespace Tour_agency
 
 
             
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            FillTable();
+            table.MouseDoubleClick += (send, ev) => {
+                var item = table.SelectedItem;
+                ((DataRowView)item).Row["Номер"] = 50;
+
+            };
+            table.AutoGeneratingColumn += (send, ev) =>
+            {
+                if (ev.PropertyType == typeof(System.DateTime))
+                {
+                    (ev.Column as DataGridTextColumn).Binding.StringFormat = "D";
+
+                }
+            };
         }
     }
 }
