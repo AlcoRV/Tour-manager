@@ -28,9 +28,9 @@
 
         <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                        Margin="10" Height="100">
+                        Height="100">
                 <StackPanel Orientation="Vertical" Margin="20 10 20 10" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                         <Label Content="Страна:"/>
                         <TextBox Text="qwert" Width="200"/>
                     </StackPanel>
@@ -41,7 +41,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Margin="20 10 20 10" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                         <Label Content="Количество ночей:"/>
                         <ComboBox x:Name="nights"/>
                     </StackPanel>
@@ -52,7 +52,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="20 0 20 20">
                     <Label Content="Стоимость:" HorizontalAlignment="Center"/>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                         <Label Content="От:"/>
                         <TextBox Text="gsgseg" Width="100"/>
                     </StackPanel>
@@ -64,12 +64,21 @@
                 <Button Content="Поиск" Margin="20 0 0 0"/>
             </StackPanel>
 
-                <DataGrid x:Name="table" ItemsSource="{Binding}"
-                  IsReadOnly="True"/>
-
         </StackPanel>
 
-
+        <DataGrid x:Name="table" ItemsSource="{Binding}"
+                  IsReadOnly="True" Margin="0 100 0 0"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Номер}"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
+                <DataGridTextColumn Header="Страна" Binding="{Binding Path=Страна}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding Path=Город}"/>
+                <DataGridTextColumn Header="К-во ночей" Binding="{Binding Path=КоличествоНочей}"/>
+                <DataGridTextColumn Header="К-во человек" Binding="{Binding Path=КоличествоЧеловек}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
 
 

@@ -101,6 +101,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="model\Tour.cs" />
     <Compile Include="ToursList.xaml.cs">
       <DependentUpon>ToursList.xaml</DependentUpon>
     </Compile>
