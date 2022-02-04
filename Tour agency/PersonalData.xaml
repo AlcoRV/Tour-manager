@@ -1,0 +1,53 @@
+﻿<Window x:Class="Tour_agency.PersonalData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tour_agency"
+        mc:Ignorable="d"
+        Title="Персональная карточка" Height="450" Width="300"
+        ResizeMode="NoResize"
+        >
+    <Grid>
+
+        <Border Margin="50" BorderThickness="2"
+                BorderBrush="Black" Background="White"
+                CornerRadius="5" Height="200"
+                VerticalAlignment="Top">
+            <TextBlock Text="Здесь могла бы быть ваша фотография" 
+                       TextAlignment="Center" TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       FontWeight="UltraBold" FontSize="18"/>
+        </Border>
+
+        <StackPanel VerticalAlignment="Bottom" Height="160">
+            <StackPanel Orientation="Horizontal" 
+                        Margin="80 0 0 5">
+                <Label Content="Id:" Margin="0 0 45 0"/>
+                <TextBox Text="qewrtqwtw" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        Margin="70 0 0 5">
+                <Label Content="ФИО:" Margin="0 0 40 0"/>
+                <TextBox Text="qewrtqwtw" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        Margin="60 0 0 0">
+                <Label Content="Телефон:" Margin="0 0 30 0"/>
+                <TextBox Text="qewrtqwtw" />
+            </StackPanel>
+            <Button Content="Изменить" Width="100" Margin="0 20 0 0"
+                    IsEnabled="False"/>
+        </StackPanel>
+
+
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#7F7FD5" Offset="0.0"/>
+                <GradientStop Color="#86A8E7" Offset="0.5"/>
+                <GradientStop Color="#91EAE4" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+    </Grid>
+</Window>
