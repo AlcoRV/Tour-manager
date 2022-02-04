@@ -16,7 +16,6 @@
                     <Setter Property="BorderThickness" Value="0"/>
                 </Style>
             </Style.Resources>
-            <Setter Property="TextAlignment" Value="Center"/>
         </Style>
     </Page.Resources>
 
@@ -76,7 +75,9 @@
                 <DataGridTextColumn Header="Город" Binding="{Binding Path=Город}"/>
                 <DataGridTextColumn Header="К-во ночей" Binding="{Binding Path=КоличествоНочей}"/>
                 <DataGridTextColumn Header="К-во человек" Binding="{Binding Path=КоличествоЧеловек}"/>
-                <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость, StringFormat={}{0:C2}}"/>
+
+
             </DataGrid.Columns>
         </DataGrid>
 

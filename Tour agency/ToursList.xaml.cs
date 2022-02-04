@@ -27,9 +27,9 @@ namespace Tour_agency
         public ToursList()
         {
             InitializeComponent();
-            
-            nights.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
-            men.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6 };
+
+            nights.ItemsSource = Enumerable.Range(1, 14);
+            men.ItemsSource = Enumerable.Range(1, 6);
         }
 
         
@@ -37,24 +37,22 @@ namespace Tour_agency
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
             {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
 
-                command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "SELECT * FROM АктуальныеТуры";
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "SELECT * FROM АктуальныеТуры";
 
-                connection.Open();
+                    connection.Open();
 
-                var tab = new DataTable();
-                tab.Load(command.ExecuteReader());
-                table.DataContext = tab.DefaultView;
+                    var tab = new DataTable();
+                    tab.Load(command.ExecuteReader());
+                    table.DataContext = tab.DefaultView;
 
-                connection.Close();
-
+                    connection.Close();
+                }
             }
-
-
-            
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -64,14 +62,6 @@ namespace Tour_agency
                 var item = table.SelectedItem;
                 ((DataRowView)item).Row["Номер"] = 50;
 
-            };
-            table.AutoGeneratingColumn += (send, ev) =>
-            {
-                if (ev.PropertyType == typeof(System.DateTime))
-                {
-                    (ev.Column as DataGridTextColumn).Binding.StringFormat = "D";
-
-                }
             };
         }
     }

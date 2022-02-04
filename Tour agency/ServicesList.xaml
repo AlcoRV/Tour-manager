@@ -9,6 +9,24 @@
       Title="Page2" Background="Transparent" >
 
     <Grid>
+        <StackPanel Orientation="Horizontal">
+            <DataGrid x:Name="table" ItemsSource="{Binding}"
+                  AutoGenerateColumns="False" 
+                  Loaded="DataGrid_Loaded"
+                  Width="500" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Номер}"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость, StringFormat={}{0:C2}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Text="Я без понятия, 
+                       чем занять это пустое пространство, 
+                       поэтому здесь этот текст)))" 
+                       FontSize="40" Margin="50 50 0 50" 
+                       Width="400" TextWrapping="Wrap"
+                       FontFamily="Segoe Print"/>
+        </StackPanel>
         
     </Grid>
 </Page>
