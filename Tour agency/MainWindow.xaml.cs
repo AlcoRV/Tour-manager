@@ -36,6 +36,9 @@ namespace Tour_agency
             mainContent["Список услуг"] = new Frame();
 
             mainContent["Список услуг"].Content = new ServicesList();
+            mainContent["Список рассрочек"] = new Frame();
+
+            mainContent["Список рассрочек"].Content = new InstallmentsList();
 
             foreach (var item in yyy.Items)
             {

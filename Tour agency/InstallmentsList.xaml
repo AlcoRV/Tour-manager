@@ -7,6 +7,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InstallmentsList">
-        
+
+
+    <Grid>
+        <TextBlock Text="Рассрочки:" VerticalAlignment="Top"
+               HorizontalAlignment="Right" FontSize="20"
+                   Margin="0 35 200 0"
+                   FontWeight="UltraBold"/>
+        <DataGrid x:Name="table" ItemsSource="{Binding}"
+              Loaded="DataGrid_Loaded" AutoGenerateColumns="False"
+              Margin="505 70 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Дата, StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Срок(в дн)" Binding="{Binding Path=Срок,  StringFormat={}{0:d}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="Покупки:" VerticalAlignment="Top"
+                 FontSize="20" Margin="200 35 0 0"
+                 FontWeight="UltraBold"/>
+        <DataGrid x:Name="table2" ItemsSource="{Binding}"
+              Loaded="DataGrid_Loaded" AutoGenerateColumns="False"
+                  Width="495" HorizontalAlignment="Left"
+                  Margin="0 70 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Название}"/>
+                <DataGridTextColumn Header="ФИО менеджера" Binding="{Binding Path=Дата, StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Срок,  StringFormat={}{0:d}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
     
 </Page>
