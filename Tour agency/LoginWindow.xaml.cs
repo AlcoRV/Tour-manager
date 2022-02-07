@@ -37,46 +37,22 @@ namespace Tour_agency
         {
             try
             {
-               using(SqlConnection connection = new SqlConnection(Constants.dbConfig))
+
+                CheckDataForSpace();
+
+                DBData dbData = new DBData();
+
+                var accountId = dbData.GetVisitorType(login.Text, password.Password);
+
+                if (accountId.visitorType.Equals(Constants.AccountId.VisitorType.Error))
                 {
-                    using(SqlCommand command = new SqlCommand())
-                    {
-
-                        CheckDataForSpace();
-
-                        command.Connection = connection;
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.CommandText = "ПроверкаВхода";
-                        command.Parameters.Add("@Логин", System.Data.SqlDbType.VarChar, 20);
-                        command.Parameters.Add("@Пароль", System.Data.SqlDbType.VarChar, 20);
-                        command.Parameters.Add("@Статус", System.Data.SqlDbType.SmallInt);
-                        command.Parameters["@Статус"].Direction = System.Data.ParameterDirection.Output;
-
-                        command.Parameters["@Логин"].Value = login.Text;
-                        command.Parameters["@Пароль"].Value = password.Password;
-
-                        connection.Open();
-
-                        command.ExecuteNonQuery();
-
-                        connection.Close();
-
-                        Constants.VisitorType visitorType = (Constants.VisitorType)Enum.ToObject(typeof(Constants.VisitorType),command.Parameters["@Статус"].Value);
-
-                        if (visitorType.Equals(Constants.VisitorType.Error))
-                        {
-                            throw new Error("Неверный логин или пароль!");
-                        }
-                        else
-                        {
-                            MainWindow mainWindow = new MainWindow();
-                            mainWindow.Show();
-                            Close();
-                        }
-
-                    }
-
-
+                    throw new Error("Неверный логин или пароль!");
+                }
+                else
+                {
+                    MainWindow mainWindow = new MainWindow(accountId);
+                    mainWindow.Show();
+                    Close();
                 }
             }
             catch (Error err)

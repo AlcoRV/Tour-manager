@@ -153,6 +153,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBData.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Constants.cs" />
     <Page Include="InstallmentsList.xaml">
