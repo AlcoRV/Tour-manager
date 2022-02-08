@@ -20,12 +20,20 @@ namespace Tour_agency
     public partial class MainWindow : Window
     {
         Dictionary<String, Frame> mainContent;
-        Constants.AccountId accountId;
+       // Constants.AccountId accountId;
 
-        public MainWindow(Constants.AccountId accountId)
+    /*    public MainWindow(Constants.AccountId accountId)
+        {
+        }*/
+
+            public MainWindow(/*Constants.AccountId accountId*/)
         {
             InitializeComponent();
-            this.accountId = accountId;
+       //     this.accountId = /*accountId;*/ new Constants.AccountId
+       //     {
+   /*             id = 1,
+                visitorType = Constants.AccountId.VisitorType.Client
+            };*/
 
             mainContent = new Dictionary<String, Frame>();
             mainContent["Список туров"] = new Frame();

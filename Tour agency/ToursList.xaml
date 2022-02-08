@@ -66,16 +66,16 @@
         </StackPanel>
 
         <DataGrid x:Name="table" ItemsSource="{Binding}"
-                  IsReadOnly="True" Margin="0 100 0 0"
+                  IsReadOnly="False" Margin="0 100 0 0"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Path=Номер}"/>
-                <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
-                <DataGridTextColumn Header="Страна" Binding="{Binding Path=Страна}"/>
-                <DataGridTextColumn Header="Город" Binding="{Binding Path=Город}"/>
-                <DataGridTextColumn Header="К-во ночей" Binding="{Binding Path=КоличествоНочей}"/>
-                <DataGridTextColumn Header="К-во человек" Binding="{Binding Path=КоличествоЧеловек}"/>
-                <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость, StringFormat={}{0:C2}}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Страна" Binding="{Binding Path=State}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding Path=City}"/>
+                <DataGridTextColumn Header="К-во ночей" Binding="{Binding Path=Nights}"/>
+                <DataGridTextColumn Header="К-во человек" Binding="{Binding Path=Men}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price, StringFormat={}{0:C2}}"/>
 
 
             </DataGrid.Columns>

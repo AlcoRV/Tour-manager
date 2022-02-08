@@ -40,17 +40,23 @@ namespace Tour_agency
 
                 CheckDataForSpace();
 
-                DBData dbData = new DBData();
+                Constants.VisitorType status;
+                int? accountId;
 
-                var accountId = dbData.GetVisitorType(login.Text, password.Password);
+                using (AgencyDbContext agencyDbContext = new AgencyDbContext())
+                {
 
-                if (accountId.visitorType.Equals(Constants.AccountId.VisitorType.Error))
+                    (status, accountId) = agencyDbContext.GetVisitorData(login.Text, password.Password);
+
+                }
+
+                if (status.Equals(Constants.VisitorType.Error))
                 {
                     throw new Error("Неверный логин или пароль!");
                 }
                 else
                 {
-                    MainWindow mainWindow = new MainWindow(accountId);
+                    MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     Close();
                 }

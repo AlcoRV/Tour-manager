@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tour_agency.model;
 
 namespace Tour_agency
 {
@@ -35,7 +36,7 @@ namespace Tour_agency
         
         private void FillTable()
         {
-            using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
+           /* using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -52,17 +53,35 @@ namespace Tour_agency
 
                     connection.Close();
                 }
+            }*/
+
+            using(var agencyDbContext = new AgencyDbContext())
+            {
+                table.ItemsSource = agencyDbContext.Tours.ToList();
             }
+
         }
+
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             FillTable();
-            table.MouseDoubleClick += (send, ev) => {
+            table.CellEditEnding += (send, ev) =>
+            {
+                using (var agencyDbContext = new AgencyDbContext())
+                {
+            /*        Tour tour = agencyDbContext.Tours.Find((ev.Row.Item as Tour).Id);
+                    tour.Price++;
+                    agencyDbContext.SaveChanges();*/
+
+                }
+            };
+
+            /*table.MouseDoubleClick += (send, ev) => {
                 var item = table.SelectedItem;
                 ((DataRowView)item).Row["Номер"] = 50;
 
-            };
+            };*/
         }
     }
 }
