@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.SqlClient;
 
-using Tour_agency.model;
+using Tour_agency.Model;
 
 namespace Tour_agency
 {
@@ -57,6 +57,8 @@ namespace Tour_agency
         }
 
         public DbSet<Tour> Tours { get; set; }
+        public DbSet<Service> services { get; set; }
+        public DbSet<Selling> sellings { get; set; }
 
     }
 }

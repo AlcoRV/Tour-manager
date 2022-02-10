@@ -238,6 +238,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Manager.cs" />
+    <Compile Include="Model\Selling.cs" />
+    <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Tour.cs" />
     <Compile Include="PersonalData.xaml.cs">
       <DependentUpon>PersonalData.xaml</DependentUpon>

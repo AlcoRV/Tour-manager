@@ -20,7 +20,8 @@ namespace Tour_agency
     public partial class MainWindow : Window
     {
         Dictionary<String, Frame> mainContent;
-       // Constants.AccountId accountId;
+        Constants.VisitorType TypeOfVisitor = Constants.VisitorType.Client;
+        int VisitorId = 1;
 
     /*    public MainWindow(Constants.AccountId accountId)
         {
@@ -48,7 +49,7 @@ namespace Tour_agency
             mainContent["Список услуг"].Content = new ServicesList();
             mainContent["Список рассрочек"] = new Frame();
 
-            mainContent["Список рассрочек"].Content = new InstallmentsList();
+            mainContent["Список рассрочек"].Content = new InstallmentsList(TypeOfVisitor, VisitorId);
 
             foreach (var item in yyy.Items)
             {

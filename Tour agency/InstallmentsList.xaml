@@ -26,14 +26,14 @@
         <TextBlock Text="Покупки:" VerticalAlignment="Top"
                  FontSize="20" Margin="200 35 0 0"
                  FontWeight="UltraBold"/>
-        <DataGrid x:Name="table2" ItemsSource="{Binding}"
+        <DataGrid x:Name="tableSelling" ItemsSource="{Binding}"
               Loaded="DataGrid_Loaded" AutoGenerateColumns="False"
                   Width="495" HorizontalAlignment="Left"
                   Margin="0 70 0 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Path=Название}"/>
-                <DataGridTextColumn Header="ФИО менеджера" Binding="{Binding Path=Дата, StringFormat={}{0:d}}"/>
-                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Срок,  StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="ФИО менеджера" Binding="{Binding Path=NameManager, StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=NameTour,  StringFormat={}{0:d}}"/>
             </DataGrid.Columns>
         </DataGrid>
 

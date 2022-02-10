@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Tour_agency.model;
+using Tour_agency.Model;
 
 namespace Tour_agency
 {
@@ -28,60 +28,39 @@ namespace Tour_agency
         public ToursList()
         {
             InitializeComponent();
-
-            nights.ItemsSource = Enumerable.Range(1, 14);
-            men.ItemsSource = Enumerable.Range(1, 6);
         }
 
-        
-        private void FillTable()
+        void filter()
         {
-           /* using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
 
-                    command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = "SELECT * FROM АктуальныеТуры";
-
-                    connection.Open();
-
-                    var tab = new DataTable();
-                    tab.Load(command.ExecuteReader());
-                    table.DataContext = tab.DefaultView;
-
-                    connection.Close();
-                }
-            }*/
-
-            using(var agencyDbContext = new AgencyDbContext())
-            {
-                table.ItemsSource = agencyDbContext.Tours.ToList();
-            }
+            table.Items.Filter = item => (item as Tour).State.StartsWith(tbState.Text) && //expression for state
+            (item as Tour).City.StartsWith(tbCity.Text) &&                                  //expression for city
+            (cbNights.SelectedItem?.Equals((item as Tour).Nights) ?? true) &&               //expression for nights
+            (cbMen.SelectedItem?.Equals((item as Tour).Men) ?? true) &&                      //expression for men
+            (tbPriceFrom.Text == "" ? true : (item as Tour).Price >= Convert.ToInt32(tbPriceFrom.Text)) &&  //expression for price
+            (tbPriceTo.Text == "" ? true : (item as Tour).Price <= Convert.ToInt32(tbPriceTo.Text));       //
 
         }
-
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            FillTable();
-            table.CellEditEnding += (send, ev) =>
+            using (var agencyDbContext = new AgencyDbContext())
             {
-                using (var agencyDbContext = new AgencyDbContext())
-                {
-            /*        Tour tour = agencyDbContext.Tours.Find((ev.Row.Item as Tour).Id);
-                    tour.Price++;
-                    agencyDbContext.SaveChanges();*/
-
-                }
-            };
+                table.ItemsSource = agencyDbContext.Tours.ToList();
+            }
+            cbNights.ItemsSource = Enumerable.Range(1, 14);
+            cbMen.ItemsSource = Enumerable.Range(1, 6);
 
             /*table.MouseDoubleClick += (send, ev) => {
                 var item = table.SelectedItem;
                 ((DataRowView)item).Row["Номер"] = 50;
 
             };*/
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            filter();
         }
     }
 }

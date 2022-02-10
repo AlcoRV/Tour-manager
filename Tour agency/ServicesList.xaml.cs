@@ -29,23 +29,9 @@ namespace Tour_agency
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
+            using(AgencyDbContext agencyDbContext = new AgencyDbContext())
             {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-
-                    command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = "SELECT * FROM ДопУслуга";
-
-                    connection.Open();
-
-                    var tab = new DataTable();
-                    tab.Load(command.ExecuteReader());
-                    table.DataContext = tab.DefaultView;
-
-                    connection.Close();
-                }
+                table.ItemsSource = agencyDbContext.services.ToList();
             }
         }
     }

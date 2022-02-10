@@ -15,9 +15,9 @@
                   Loaded="DataGrid_Loaded"
                   Width="500" HorizontalAlignment="Left">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Номер}"/>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Стоимость, StringFormat={}{0:C2}}"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price, StringFormat={}{0:C2}}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <TextBlock Text="Я без понятия, 

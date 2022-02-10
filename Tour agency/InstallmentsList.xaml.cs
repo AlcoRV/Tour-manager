@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tour_agency.Model;
 
 namespace Tour_agency
 {
@@ -22,31 +23,24 @@ namespace Tour_agency
     /// </summary>
     public partial class InstallmentsList : Page
     {
-        public InstallmentsList()
+        Constants.VisitorType TypeOfVisitor { get; }
+        int VisitorId { get; }
+
+        public InstallmentsList(Constants.VisitorType visitorType, int visitorId)
         {
             InitializeComponent();
+            TypeOfVisitor = visitorType;
+            VisitorId = visitorId;
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-GJS201Q\SQLEXPRESS;Initial Catalog=ТурАгентство;Integrated Security=True"))
+            using (var agencyDbContext = new AgencyDbContext())
             {
-                using (SqlCommand command = new SqlCommand())
+                tableSelling.ItemsSource = agencyDbContext.sellings.ToList();
+                if(TypeOfVisitor == Constants.VisitorType.Client)
                 {
-                    command.Connection = connection;
-
-                    command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = "SELECT * FROM РассрочкиДля(@НомерКлиента)";
-                    command.Parameters.Add("@НомерКлиента", SqlDbType.Int);
-                    command.Parameters["@НомерКлиента"].Value = 2;
-
-                    connection.Open();
-
-                    var tab = new DataTable();
-                    tab.Load(command.ExecuteReader());
-                    table.DataContext = tab.DefaultView;
-
-                    connection.Close();
+              //      tableSelling.Items.Filter = item => (item as Selling). == /\/\/\/\отсев по клиенту
                 }
             }
         }

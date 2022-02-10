@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tour_agency.model
+namespace Tour_agency.Model
 {
     [Table("Тур")]
     public class Tour
