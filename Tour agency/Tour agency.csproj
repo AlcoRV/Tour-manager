@@ -215,6 +215,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TourCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ToursList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,6 +250,9 @@
     <Compile Include="Model\Tour.cs" />
     <Compile Include="PersonalData.xaml.cs">
       <DependentUpon>PersonalData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TourCard.xaml.cs">
+      <DependentUpon>TourCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToursList.xaml.cs">
       <DependentUpon>ToursList.xaml</DependentUpon>

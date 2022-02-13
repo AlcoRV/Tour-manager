@@ -25,6 +25,8 @@ namespace Tour_agency
     /// </summary>
     public partial class ToursList : Page
     {
+        public static bool TourIsSelected { get; set; } = false;
+
         public ToursList()
         {
             InitializeComponent();
@@ -51,11 +53,16 @@ namespace Tour_agency
             cbNights.ItemsSource = Enumerable.Range(1, 14);
             cbMen.ItemsSource = Enumerable.Range(1, 6);
 
-            /*table.MouseDoubleClick += (send, ev) => {
+            table.MouseDoubleClick += (send, ev) => {
                 var item = table.SelectedItem;
-                ((DataRowView)item).Row["Номер"] = 50;
-
-            };*/
+                Tour tour = item as Tour;
+                if(TourIsSelected == false)
+                {
+                    TourIsSelected = true;
+                    var tourCard = new TourCard(tour);
+                    tourCard.Show();
+                }
+            };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -42,7 +42,7 @@ namespace Tour_agency
 
             ttt.Content = mainContent["Список туров"];
             mainContent["Список туров"].MouseDown -= Grid_MouseDown;
-
+            
 
             mainContent["Список услуг"] = new Frame();
 
