@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Tour_agency.Model
     public class Tour
     {
         [Column("Номер")]
+        [Key]
         public int Id { get; set; }
         [Column("Название")]
         public string Name { get; set; }
@@ -28,5 +30,8 @@ namespace Tour_agency.Model
         public decimal Price { get; set; }
         [Column("КрайняяДатаПокупки")]
         public DateTime LastData { get; set; }
+
+        //    [ForeignKey("НомерТура")]
+        public virtual ICollection<Selling> Sellings { get; set; }
     }
 }

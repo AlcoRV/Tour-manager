@@ -14,26 +14,27 @@
                HorizontalAlignment="Right" FontSize="20"
                    Margin="0 35 200 0"
                    FontWeight="UltraBold"/>
-        <DataGrid x:Name="table" ItemsSource="{Binding}"
-              Loaded="DataGrid_Loaded" AutoGenerateColumns="False"
-              Margin="505 70 0 0">
+        <DataGrid x:Name="installmentTable" ItemsSource="{Binding}"
+              Loaded="installmentTable_Loaded" AutoGenerateColumns="False"
+              Margin="505 70 0 0" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding Path=Название}"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Дата, StringFormat={}{0:d}}"/>
-                <DataGridTextColumn Header="Срок(в дн)" Binding="{Binding Path=Срок,  StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Tour.Name}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date, StringFormat={}{0:d}}"/>
+                <DataGridTextColumn Header="Срок(в дн)" Binding="{Binding Path=Period}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Text="Покупки:" VerticalAlignment="Top"
+        <TextBlock x:Name="sellingLabel" Text="Покупки:" VerticalAlignment="Top"
                  FontSize="20" Margin="200 35 0 0"
                  FontWeight="UltraBold"/>
         <DataGrid x:Name="tableSelling" ItemsSource="{Binding}"
-              Loaded="DataGrid_Loaded" AutoGenerateColumns="False"
+              Loaded="tableSelling_Loaded" AutoGenerateColumns="False"
                   Width="495" HorizontalAlignment="Left"
-                  Margin="0 70 0 0">
+                  Margin="0 70 0 0" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="ФИО менеджера" Binding="{Binding Path=NameManager, StringFormat={}{0:d}}"/>
-                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=NameTour,  StringFormat={}{0:d}}"/>
+                <DataGridTextColumn x:Name="nameColumn" Header="ФИО менеджера" Binding="{Binding Path=Manager.Name}"/>
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Tour.Name}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date,  StringFormat={}{0:d}}"/>
             </DataGrid.Columns>
         </DataGrid>
 

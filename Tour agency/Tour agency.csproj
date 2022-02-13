@@ -237,6 +237,9 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Base\Man.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\Installment.cs" />
     <Compile Include="Model\Manager.cs" />
     <Compile Include="Model\Selling.cs" />
     <Compile Include="Model\Service.cs" />

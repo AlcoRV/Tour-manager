@@ -31,7 +31,7 @@ namespace Tour_agency
         {
             using(AgencyDbContext agencyDbContext = new AgencyDbContext())
             {
-                table.ItemsSource = agencyDbContext.services.ToList();
+                table.ItemsSource = agencyDbContext.Services.ToList();
             }
         }
     }

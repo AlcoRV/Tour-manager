@@ -33,15 +33,66 @@ namespace Tour_agency
             VisitorId = visitorId;
         }
 
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        private void tableSelling_Loaded(object sender, RoutedEventArgs e)
         {
             using (var agencyDbContext = new AgencyDbContext())
             {
-                tableSelling.ItemsSource = agencyDbContext.sellings.ToList();
+                tableSelling.ItemsSource = agencyDbContext.Sellings.ToList();
+                foreach(var item in tableSelling.Items)
+                {
+                    Selling selling = item as Selling;
+                    if(selling is null) { break; }
+                    selling.Manager = agencyDbContext.Managers.Find(selling.ManagerId);
+                    selling.Client = agencyDbContext.Clients.Find(selling?.ClientId);
+                    selling.Tour = agencyDbContext.Tours.Find(selling?.TourId);
+                }
+
+
+
                 if(TypeOfVisitor == Constants.VisitorType.Client)
                 {
-              //      tableSelling.Items.Filter = item => (item as Selling). == /\/\/\/\отсев по клиенту
+                    tableSelling.Items.Filter = item => (item as Selling).ClientId == VisitorId;
                 }
+                else
+                {
+                    sellingLabel.Text = "Продажи";
+                    nameColumn.Header = "ФИО клиента";
+                    nameColumn.Binding = new Binding() { Path = new PropertyPath("Client.Name") };
+                    tableSelling.Items.Filter = item => (item as Selling).ManagerId == VisitorId;
+                }
+
+            }
+        }
+
+        private void installmentTable_Loaded(object sender, RoutedEventArgs e)
+        {
+            using(var agencyDbContent = new AgencyDbContext())
+            {
+                installmentTable.ItemsSource = agencyDbContent.Installments.ToList();
+
+                foreach (var item in installmentTable.Items)
+                {
+                    Installment installment = item as Installment;
+                    if (installment is null) { break; }
+                    installment.Client = agencyDbContent.Clients.Find(installment.ClientId);
+                    installment.Tour = agencyDbContent.Tours.Find(installment.TourId);
+                }
+
+                if (TypeOfVisitor == Constants.VisitorType.Client)
+                {
+                    installmentTable.Items.Filter = item => (item as Installment).ClientId == VisitorId;
+                }
+                else
+                {
+                    DataGridTextColumn column = new DataGridTextColumn()
+                    {
+                        Header = "ФИО клиента",
+                        Binding = new Binding("Client.Name")
+                    };
+                    installmentTable.Columns.Add(column);
+                    column.DisplayIndex = 0;
+                }
+
             }
         }
     }

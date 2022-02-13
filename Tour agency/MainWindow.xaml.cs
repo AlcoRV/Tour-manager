@@ -88,5 +88,11 @@ namespace Tour_agency
         {
             Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var personalData = new PersonalData(TypeOfVisitor, VisitorId);
+            personalData.Show();
+        }
     }
 }

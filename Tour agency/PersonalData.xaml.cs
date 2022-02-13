@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tour_agency.Model.Base;
 
 namespace Tour_agency
 {
@@ -19,9 +20,31 @@ namespace Tour_agency
     /// </summary>
     public partial class PersonalData : Window
     {
-        public PersonalData()
+        Constants.VisitorType TypeOfVisitor { get; }
+        int VisitorId { get; }
+        public PersonalData(Constants.VisitorType visitorType, int visitorId)
         {
             InitializeComponent();
+            TypeOfVisitor = visitorType;
+            VisitorId = visitorId;
+            
+            Man visitor;
+
+            using (var agencyDbContext = new AgencyDbContext()) {
+                if (TypeOfVisitor == Constants.VisitorType.Client)
+                {
+                    visitor = agencyDbContext.Clients.Find(VisitorId);
+                }
+                else
+                {
+                    visitor = agencyDbContext.Managers.Find(VisitorId);
+                }
+            }
+
+            tbId.Text = visitor.Id.ToString();
+            tbName.Text = visitor.Name;
+            tbPhone.Text = visitor.Phone;
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,11 @@ using Tour_agency.Model.Base;
 
 namespace Tour_agency.Model
 {
-    [Table("Менеджер")]
-    public class Manager : Man
+    [Table("Клиент")]
+    public class Client : Man
     {
         [Column("Номер")]
+        [Key]
         public override int Id { get; set; }
 
         [Column("ФИО")]

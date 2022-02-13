@@ -56,9 +56,20 @@ namespace Tour_agency
             return (status, number);
         }
 
-        public DbSet<Tour> Tours { get; set; }
-        public DbSet<Service> services { get; set; }
-        public DbSet<Selling> sellings { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Installment>().HasKey(it => new { it.ClientId, it.TourId });
+        }
+
+        
+
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Selling> Sellings { get; set; }
+        public DbSet<Installment> Installments { get; set; }
     }
 }

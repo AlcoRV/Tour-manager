@@ -97,7 +97,7 @@
 
 
       <Button HorizontalAlignment="Right" VerticalAlignment="Top"
-                Width="50" Height="50" Margin="30">
+                Width="50" Height="50" Margin="30" Click="Button_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="20">
