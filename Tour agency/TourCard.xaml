@@ -11,7 +11,8 @@
 
 
         <Border Margin="20" BorderBrush="DarkRed" BorderThickness="2"
-                CornerRadius="30" MouseDown="Border_MouseDown">
+                CornerRadius="30" MouseDown="Border_MouseDown"
+                >
 
             <Grid>
         <Grid.ColumnDefinitions>
@@ -30,7 +31,8 @@
               Margin="100 0 0 0">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Название тура"  FontSize="20" Margin="0 0 10 0"/>
-                        <TextBox x:Name="tbName" FontSize="20" IsEnabled="False"/>
+                        <TextBox x:Name="tbName" FontSize="20" IsReadOnly="True"
+                                 GotFocus="Border_GotFocus"/>
             </StackPanel>
         </Grid>
 
@@ -48,12 +50,14 @@
 
                 
                 <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
-                    <StackPanel Margin="0 0 10 0">
-                        <TextBox x:Name="tbState" FontSize="20" IsEnabled="False"/>
-                        <TextBox x:Name="tbCity" FontSize="20" IsEnabled="False"/>
+                    <StackPanel Margin="0 0 10 0" GotFocus="Border_GotFocus">
+                        <TextBox x:Name="tbState" FontSize="20" IsReadOnly="True"/>
+                        <TextBox x:Name="tbCity" FontSize="20" IsReadOnly="True"/>
                         <ComboBox x:Name="cbMen" FontSize="20" IsEnabled="False"/>
                         <ComboBox x:Name="cbNights" FontSize="20" IsEnabled="False"/>
-                        <TextBox x:Name="tbPrice" FontSize="20" IsEnabled="False"/>
+                        <TextBox x:Name="tbPrice" FontSize="20" IsReadOnly="True"
+                                 PreviewTextInput="tbPrice_PreviewTextInput"
+                                 PreviewKeyDown="tbPrice_PreviewKeyDown"/>
                         <DatePicker Name="dpDate" IsEnabled="False"/>
                     </StackPanel>
                 </Grid>
@@ -63,7 +67,7 @@
                      TextWrapping="Wrap" AcceptsReturn="True"
                              BorderBrush="Bisque"
                              BorderThickness="3"
-                             IsReadOnly="True">
+                             IsReadOnly="True" GotFocus="tbDescription_GotFocus">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -73,9 +77,15 @@
                     </TextBox>
                 </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="1" >
-            <Button Content="Сохранить" Margin="0 0 10 0"/>
-        </Grid>
+                <Grid Grid.Row="2" Grid.Column="1" Margin="0 0 10 0">
+                    <TextBlock x:Name="message"
+                               HorizontalAlignment="Center"
+                               FontSize="20"
+                               TextWrapping="Wrap"
+                               Foreground="Red"
+                               Visibility="Collapsed"/>
+                    <Button x:Name="btnSaver" Content="Сохранить" Margin="0 0 0 30" Click="Execute_Click" VerticalAlignment="Bottom"/>
+                </Grid>
 
             </Grid>
 

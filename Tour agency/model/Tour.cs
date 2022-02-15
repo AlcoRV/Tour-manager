@@ -12,7 +12,7 @@ namespace Tour_agency.Model
     public class Tour
     {
         [Column("Номер")]
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         [Column("Название")]
         public string Name { get; set; }

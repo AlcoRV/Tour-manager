@@ -26,19 +26,20 @@ namespace Tour_agency
     public partial class ToursList : Page
     {
         public static bool TourIsSelected { get; set; } = false;
+        public Constants.VisitorType TypeOfVisitor { get; set; }
 
-        public ToursList()
+        public ToursList(Constants.VisitorType visitorType)
         {
             InitializeComponent();
+            TypeOfVisitor = visitorType;
         }
-
         void filter()
         {
 
             table.Items.Filter = item => (item as Tour).State.StartsWith(tbState.Text) && //expression for state
             (item as Tour).City.StartsWith(tbCity.Text) &&                                  //expression for city
-            (cbNights.SelectedItem?.Equals((item as Tour).Nights) ?? true) &&               //expression for nights
-            (cbMen.SelectedItem?.Equals((item as Tour).Men) ?? true) &&                      //expression for men
+            (cbNights.SelectedItem?.Equals((item as Tour).Nights.ToString()) ?? true) &&               //expression for nights
+            (cbMen.SelectedItem?.ToString().Equals((item as Tour).Men.ToString()) ?? true) &&                      //expression for men
             (tbPriceFrom.Text == "" ? true : (item as Tour).Price >= Convert.ToInt32(tbPriceFrom.Text)) &&  //expression for price
             (tbPriceTo.Text == "" ? true : (item as Tour).Price <= Convert.ToInt32(tbPriceTo.Text));       //
 
@@ -46,12 +47,26 @@ namespace Tour_agency
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+
             using (var agencyDbContext = new AgencyDbContext())
             {
-                table.ItemsSource = agencyDbContext.Tours.ToList();
+                if (TypeOfVisitor == Constants.VisitorType.Client)
+                {
+                    table.ItemsSource = agencyDbContext.Tours.ToList().Where(tour => (tour.LastData - DateTime.Now).Days > 26);
+                }
+                else
+                {
+                    table.ItemsSource = agencyDbContext.Tours.ToList();
+                }
+
             }
-            cbNights.ItemsSource = Enumerable.Range(1, 14);
-            cbMen.ItemsSource = Enumerable.Range(1, 6);
+            var content = new List<string> { "" };
+            content.AddRange(Enumerable.Range(2, 13).Select(x => x.ToString()));
+            cbNights.ItemsSource = content;
+
+            content = new List<string> { "" };
+            content.AddRange(Enumerable.Range(1, 6).Select(x => x.ToString()));
+            cbMen.ItemsSource = content;
 
             table.MouseDoubleClick += (send, ev) => {
                 var item = table.SelectedItem;
@@ -65,9 +80,31 @@ namespace Tour_agency
             };
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
             filter();
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (TourIsSelected == false)
+            {
+                TourIsSelected = true;
+                var tourCard = new TourCard();
+                tourCard.Show();
+            }
+        }
+
+        private void cbNights_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cbNights.SelectedItem == null) { return; }
+            if (cbNights.SelectedItem.ToString().Equals("")) { cbNights.SelectedItem = null; }
+        }
+
+        private void cbMen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbMen.SelectedItem == null) { return; }
+            if (cbMen.SelectedItem.ToString().Equals("")) { cbMen.SelectedItem = null; }
         }
     }
 }
