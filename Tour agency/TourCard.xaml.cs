@@ -124,7 +124,6 @@ namespace Tour_agency
         {
             using (var agencyDbContext = new AgencyDbContext())
             {
-                string price = new String(tbPrice.Text.Substring(0, tbPrice.Text.Length-5).Where(char.IsDigit).ToArray());
                 Tour tour = agencyDbContext.Tours.Find(TourId);
                 tour.Name = tbName.Text;
                     tour.State = tbState.Text;
@@ -132,7 +131,7 @@ namespace Tour_agency
                 tour.Men = (int)cbMen.SelectedItem;
                 tour.Nights = (int)cbNights.SelectedItem;
                 tour.Description = tbDescription.Text;
-                tour.Price = decimal.Parse(price, NumberStyles.AllowCurrencySymbol | NumberStyles.AllowDecimalPoint);
+                tour.Price = Decimal.Parse(tbPrice.Text,  NumberStyles.Any);
                 tour.LastData = dpDate.DisplayDate.AddMonths(1);
 
                 agencyDbContext.SaveChanges();

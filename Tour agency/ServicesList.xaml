@@ -5,29 +5,54 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Tour_agency"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="Page2" Background="Transparent" >
 
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
             <DataGrid x:Name="table" ItemsSource="{Binding}"
                   AutoGenerateColumns="False" 
                   Loaded="DataGrid_Loaded"
-                  Width="500" HorizontalAlignment="Left"
-                      CanUserAddRows="False">
+                  Width="500"
+                      Grid.Column="0"
+                      CellEditEnding="table_CellEditEnding"
+                      AddingNewItem="table_AddingNewItem"
+                      PreviewKeyDown="table_KeyDown"
+                      >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price, StringFormat={}{0:C2}}"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price, StringFormat={}{0:C2}}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="Я без понятия, 
+            <TextBlock Grid.Column="1" Text="Я без понятия, 
                        чем занять это пустое пространство, 
                        поэтому здесь этот текст)))" 
-                       FontSize="40" Margin="50 50 0 50" 
+                       FontSize="40" Margin="50 120 0 50" 
                        Width="400" TextWrapping="Wrap"
                        FontFamily="Segoe Print"/>
-        </StackPanel>
-        
+
+        <Button x:Name="btnSaver"
+            VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="20"
+                Content="Сохранить изменения"
+                Grid.Column="1"
+                Click="btnServises_Click"
+                />
+
+        <TextBlock Grid.Column="1"
+                    x:Name="message"
+                   VerticalAlignment="Top"
+                   Margin="20 60 0 0"
+                   Foreground="Red"
+                   FontSize="18"
+                   Visibility="Collapsed"
+                   />
+
     </Grid>
 </Page>
