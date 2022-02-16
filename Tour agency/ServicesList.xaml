@@ -13,7 +13,8 @@
             <DataGrid x:Name="table" ItemsSource="{Binding}"
                   AutoGenerateColumns="False" 
                   Loaded="DataGrid_Loaded"
-                  Width="500" HorizontalAlignment="Left">
+                  Width="500" HorizontalAlignment="Left"
+                      CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>

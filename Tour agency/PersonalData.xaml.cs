@@ -20,8 +20,8 @@ namespace Tour_agency
     /// </summary>
     public partial class PersonalData : Window
     {
-        Constants.VisitorType TypeOfVisitor { get; }
-        int VisitorId { get; }
+        Constants.VisitorType TypeOfVisitor { get; } = Constants.VisitorType.Client;
+        int VisitorId { get; } = 1;
         public PersonalData(Constants.VisitorType visitorType, int visitorId)
         {
             InitializeComponent();

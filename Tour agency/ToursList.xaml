@@ -30,9 +30,10 @@
                 VerticalAlignment="Top" 
                     Width="100" 
                     HorizontalAlignment="Left"
-                    Margin="15 35 0 0"/>
+                    Margin="15 35 0 0"
+                    Click="Button_Click"/>
         </Grid>
-        
+
         <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Height="100">
@@ -71,17 +72,19 @@
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center">
                     <Button Content="Поиск" Margin="20 0 0 5" Click="Search_Click"/>
-                    <Button Content="Добавить тур" Margin="20 5 0 0" Click="Add_Click"/>
+                    <Button x:Name="btnAdd" Content="Добавить тур" Margin="20 5 0 0" Click="Add_Click"/>
                 </StackPanel>
-               
+
             </StackPanel>
 
         </StackPanel>
-
         <DataGrid x:Name="table" ItemsSource="{Binding}"
                   IsReadOnly="true" Margin="0 100 0 0"
                   AutoGenerateColumns="False"
-                  CanUserAddRows="False">
+                  CanUserAddRows="False" 
+                  PreviewKeyDown="table_KeyDown"
+                  >
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
                 <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>

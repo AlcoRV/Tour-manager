@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,14 @@ namespace Tour_agency
     /// </summary>
     public partial class TourCard : Window
     {
+        private Mode TourMode { get; set; }
+        enum Mode
+        {
+            Add,
+            Edit
+        }
+
+        int TourId { get; set; }
 
         public TourCard()
         {
@@ -28,6 +37,7 @@ namespace Tour_agency
             cbMen.ItemsSource = Enumerable.Range(1, 7);
             cbNights.ItemsSource = Enumerable.Range(2, 13);
             allowEverything();
+            TourMode = Mode.Add;
         }
 
         private void allowEverything()
@@ -43,13 +53,22 @@ namespace Tour_agency
             dpDate.IsEnabled = true;
         }
 
-        public TourCard(Tour tour)
+        public TourCard(Tour tour, Constants.VisitorType visitorType)
         {
             InitializeComponent();
             cbMen.ItemsSource = Enumerable.Range(1, 7);
             cbNights.ItemsSource = Enumerable.Range(2, 13);
             fillSpaces(tour);
-            btnSaver.Visibility = Visibility.Collapsed;
+            if (visitorType == Constants.VisitorType.Client)
+            {
+                btnSaver.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                allowEverything();
+            }
+            TourMode = Mode.Edit;
+            TourId = tour.Id;
         }
 
         private void fillSpaces(Tour tour)
@@ -87,6 +106,41 @@ namespace Tour_agency
                 message.Visibility = Visibility.Visible;
                 return;
             }
+            if (TourMode == Mode.Add)
+            { 
+                AddTour();
+                PrintMessage("Тур успешно добавлен!");
+            }
+            else
+            {
+                EditTour();
+                PrintMessage("Тур успешно изменён!");
+            }
+
+            CloseLater();
+        }
+
+        private void EditTour()
+        {
+            using (var agencyDbContext = new AgencyDbContext())
+            {
+                string price = new String(tbPrice.Text.Substring(0, tbPrice.Text.Length-5).Where(char.IsDigit).ToArray());
+                Tour tour = agencyDbContext.Tours.Find(TourId);
+                tour.Name = tbName.Text;
+                    tour.State = tbState.Text;
+                tour.City = tbCity.Text;
+                tour.Men = (int)cbMen.SelectedItem;
+                tour.Nights = (int)cbNights.SelectedItem;
+                tour.Description = tbDescription.Text;
+                tour.Price = decimal.Parse(price, NumberStyles.AllowCurrencySymbol | NumberStyles.AllowDecimalPoint);
+                tour.LastData = dpDate.DisplayDate.AddMonths(1);
+
+                agencyDbContext.SaveChanges();
+            }
+        }
+
+        private void AddTour()
+        {
             using (var agencyDbContext = new AgencyDbContext())
             {
                 int maxIndex = agencyDbContext.Tours.ToList().Last().Id + 1;
@@ -105,8 +159,17 @@ namespace Tour_agency
                 agencyDbContext.Tours.Add(tour);
                 agencyDbContext.SaveChanges();
             }
+        }
 
+        private void PrintMessage(string strMessage)
+        {
+            message.Text = strMessage;
+            message.Foreground = Brushes.White;
+            message.Visibility = Visibility.Visible;
+        }
 
+        private void CloseLater()
+        {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += (s, ev) =>
             {
@@ -115,11 +178,8 @@ namespace Tour_agency
             };
             timer.Interval = new TimeSpan(0, 0, 5);
             timer.Start();
-            message.Text = "Тур успешно добавлен!";
-            message.Foreground = Brushes.White;
-            message.Visibility = Visibility.Visible;
-
         }
+
 
         private void checkSpaces()
         {

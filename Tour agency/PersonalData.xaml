@@ -24,20 +24,18 @@
             <StackPanel Orientation="Horizontal" 
                         Margin="80 0 0 5">
                 <Label Content="Id:" Margin="0 0 45 0"/>
-                <TextBox x:Name="tbId" Text="qewrtqwtw" IsReadOnly="True"/>
+                <TextBox x:Name="tbId" IsReadOnly="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" 
                         Margin="70 0 0 5">
                 <Label Content="ФИО:" Margin="0 0 40 0"/>
-                <TextBox x:Name="tbName" Text="qewrtqwtw" />
+                <TextBox x:Name="tbName" IsReadOnly="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" 
                         Margin="60 0 0 0">
                 <Label Content="Телефон:" Margin="0 0 30 0"/>
-                <TextBox x:Name="tbPhone" Text="qewrtqwtw" />
+                <TextBox x:Name="tbPhone" IsReadOnly="True" />
             </StackPanel>
-            <Button Content="Изменить" Width="100" Margin="0 20 0 0"
-                    IsEnabled="False"/>
         </StackPanel>
 
 

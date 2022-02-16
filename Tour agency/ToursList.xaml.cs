@@ -32,6 +32,11 @@ namespace Tour_agency
         {
             InitializeComponent();
             TypeOfVisitor = visitorType;
+            if (TypeOfVisitor == Constants.VisitorType.Client)
+            {
+                btnAdd.Visibility = Visibility.Collapsed;
+            }
+            
         }
         void filter()
         {
@@ -48,18 +53,8 @@ namespace Tour_agency
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
 
-            using (var agencyDbContext = new AgencyDbContext())
-            {
-                if (TypeOfVisitor == Constants.VisitorType.Client)
-                {
-                    table.ItemsSource = agencyDbContext.Tours.ToList().Where(tour => (tour.LastData - DateTime.Now).Days > 26);
-                }
-                else
-                {
-                    table.ItemsSource = agencyDbContext.Tours.ToList();
-                }
+            UpdateList();
 
-            }
             var content = new List<string> { "" };
             content.AddRange(Enumerable.Range(2, 13).Select(x => x.ToString()));
             cbNights.ItemsSource = content;
@@ -74,7 +69,7 @@ namespace Tour_agency
                 if(TourIsSelected == false)
                 {
                     TourIsSelected = true;
-                    var tourCard = new TourCard(tour);
+                    var tourCard = new TourCard(tour, TypeOfVisitor);
                     tourCard.Show();
                 }
             };
@@ -105,6 +100,43 @@ namespace Tour_agency
         {
             if (cbMen.SelectedItem == null) { return; }
             if (cbMen.SelectedItem.ToString().Equals("")) { cbMen.SelectedItem = null; }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateList();
+        }
+
+        private void UpdateList()
+        {
+            using (var agencyDbContext = new AgencyDbContext())
+            {
+                if (TypeOfVisitor == Constants.VisitorType.Client)
+                {
+                    table.ItemsSource = agencyDbContext.Tours.ToList().Where(tour => (tour.LastData - DateTime.Now).Days > 26);
+                }
+                else
+                {
+                    table.ItemsSource = agencyDbContext.Tours.ToList();
+                }
+
+            }
+        }
+
+        private void table_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(TypeOfVisitor == Constants.VisitorType.Client) { return; }
+            if(e.Key == Key.Delete)
+            {
+                int tourId = (table.SelectedItem as Tour).Id;
+                using(var agencyDbContext = new AgencyDbContext())
+                {
+                    Tour tour = agencyDbContext.Tours.Find(tourId);
+                    agencyDbContext.Tours.Remove(tour);
+                    agencyDbContext.SaveChanges();
+                }
+                UpdateList();
+            }
         }
     }
 }
