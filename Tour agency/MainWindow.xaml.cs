@@ -20,7 +20,7 @@ namespace Tour_agency
     public partial class MainWindow : Window
     {
         Dictionary<String, Frame> mainContent;
-        Constants.VisitorType TypeOfVisitor = Constants.VisitorType.Client;
+        Constants.VisitorType TypeOfVisitor = Constants.VisitorType.Manager;
         int VisitorId = 1;
 
     /*    public MainWindow(Constants.AccountId accountId)

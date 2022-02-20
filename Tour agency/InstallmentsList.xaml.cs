@@ -31,37 +31,62 @@ namespace Tour_agency
             InitializeComponent();
             TypeOfVisitor = visitorType;
             VisitorId = visitorId;
+            
+            using(var agencyDbContext = new AgencyDbContext())
+            {
+                yyy.ItemsSource = agencyDbContext.Tours.ToList().Select(item => item.Name);
+                www.ItemsSource = agencyDbContext.Clients.ToList().Select(item => item.Name);
+            }
+
+            if (TypeOfVisitor == Constants.VisitorType.Manager)
+            {
+                www.Visibility = Visibility.Visible;
+                installmentTable.CanUserAddRows = true;
+                tableSelling.CanUserAddRows = true;
+            }
         }
 
         private void tableSelling_Loaded(object sender, RoutedEventArgs e)
         {
             using (var agencyDbContext = new AgencyDbContext())
             {
-                tableSelling.ItemsSource = agencyDbContext.Sellings.ToList();
-                foreach(var item in tableSelling.Items)
-                {
-                    Selling selling = item as Selling;
-                    if(selling is null) { break; }
-                    selling.Manager = agencyDbContext.Managers.Find(selling.ManagerId);
-                    selling.Client = agencyDbContext.Clients.Find(selling?.ClientId);
-                    selling.Tour = agencyDbContext.Tours.Find(selling?.TourId);
-                }
-
-
-
                 if(TypeOfVisitor == Constants.VisitorType.Client)
                 {
-                    tableSelling.Items.Filter = item => (item as Selling).ClientId == VisitorId;
+                    tableSelling.ItemsSource = agencyDbContext.Sellings.ToList().Where(item => item.ClientId == VisitorId).ToList();
+
+                    foreach (var item in tableSelling.Items)
+                    {
+                        Selling selling = item as Selling;
+                        if (selling is null) { break; }
+                        selling.Manager = agencyDbContext.Managers.Find(selling.ManagerId);
+                        selling.Tour = agencyDbContext.Tours.Find(selling?.TourId);
+                    }
+
                 }
                 else
                 {
-                    sellingLabel.Text = "Продажи";
-                    nameColumn.Header = "ФИО клиента";
-                    nameColumn.Binding = new Binding() { Path = new PropertyPath("Client.Name") };
-                    tableSelling.Items.Filter = item => (item as Selling).ManagerId == VisitorId;
+                    tableSelling.ItemsSource = agencyDbContext.Sellings.ToList().Where(item => item.ManagerId == VisitorId).ToList();
+
+                    foreach (var item in tableSelling.Items)
+                    {
+                        Selling selling = item as Selling;
+                        if (selling is null) { break; }
+                        selling.Client = agencyDbContext.Clients.Find(selling.ClientId);
+                        selling.Tour = agencyDbContext.Tours.Find(selling?.TourId);
+                    }
+                    AdaptToManager();
                 }
 
             }
+
+        }
+
+        private void AdaptToManager()
+        {
+            sellingLabel.Text = "Продажи";
+            nameColumn.Header = "ФИО клиента";
+            nameColumn.Binding = new Binding() { Path = new PropertyPath("Client.Name") };
+            tableSelling.Items.Filter = item => (item as Selling).ManagerId == VisitorId;
         }
 
         private void installmentTable_Loaded(object sender, RoutedEventArgs e)
@@ -82,17 +107,18 @@ namespace Tour_agency
                 {
                     installmentTable.Items.Filter = item => (item as Installment).ClientId == VisitorId;
                 }
-                else
-                {
-                    DataGridTextColumn column = new DataGridTextColumn()
-                    {
-                        Header = "ФИО клиента",
-                        Binding = new Binding("Client.Name")
-                    };
-                    installmentTable.Columns.Add(column);
-                    column.DisplayIndex = 0;
-                }
 
+
+                }
+        }
+
+        private void newSelling_Click(object sender, RoutedEventArgs e)
+        {
+            using(var agencyDbContext = new AgencyDbContext())
+            {
+                var newSelling = new FormNewSelling(agencyDbContext.Sellings.ToList(),
+                    agencyDbContext.Managers.ToList().Find(manager => manager.Id == VisitorId) as Manager);
+                newSelling.Show();
             }
         }
     }
