@@ -44,7 +44,12 @@ namespace Tour_agency
             tbId.Text = visitor.Id.ToString();
             tbName.Text = visitor.Name;
             tbPhone.Text = visitor.Phone;
+            MainWindow.PersonalDataIsShowing = true;
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow.PersonalDataIsShowing = false;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Tour_agency
                 }
                 else
                 {
-                    MainWindow mainWindow = new MainWindow();
+                    MainWindow mainWindow = new MainWindow(status, (int)accountId);
                     mainWindow.Show();
                     Close();
                 }

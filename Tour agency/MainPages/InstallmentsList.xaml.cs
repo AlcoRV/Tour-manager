@@ -26,6 +26,9 @@ namespace Tour_agency
         Constants.VisitorType TypeOfVisitor { get; }
         int VisitorId { get; }
 
+        public static bool TourIsSelling { get; set; } = false;
+        public static bool InstallmentAreIssued { get; set; } = false;
+
         public InstallmentsList(Constants.VisitorType visitorType, int visitorId)
         {
             InitializeComponent();
@@ -43,6 +46,8 @@ namespace Tour_agency
                 www.Visibility = Visibility.Visible;
                 installmentTable.CanUserAddRows = true;
                 tableSelling.CanUserAddRows = true;
+                btnInstallment.Visibility = Visibility.Visible;
+                btnSelling.Visibility = Visibility.Visible;
             }
         }
 
@@ -114,7 +119,9 @@ namespace Tour_agency
 
         private void newSelling_Click(object sender, RoutedEventArgs e)
         {
-            using(var agencyDbContext = new AgencyDbContext())
+            if (TourIsSelling == true) { return; }
+
+            using (var agencyDbContext = new AgencyDbContext())
             {
                 var newSelling = new FormNewSelling(agencyDbContext.Sellings.ToList(),
                     agencyDbContext.Managers.ToList().Find(manager => manager.Id == VisitorId) as Manager);
@@ -124,6 +131,8 @@ namespace Tour_agency
 
         private void newInstallment_Click(object sender, RoutedEventArgs e)
         {
+            if(InstallmentAreIssued == true) { return; }
+
             using (var agencyDbContext = new AgencyDbContext())
             {
                 var newInstallment = new FormNewInstallment(agencyDbContext.Sellings.ToList(), 

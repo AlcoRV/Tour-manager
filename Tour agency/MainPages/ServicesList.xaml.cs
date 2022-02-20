@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tour_agency.AdditionalsWindows;
 using Tour_agency.Model;
 
 namespace Tour_agency
@@ -24,21 +25,26 @@ namespace Tour_agency
     /// </summary>
     public partial class ServicesList : Page
     {
-        public ServicesList(Constants.VisitorType visitorType)
+        public static bool AddingService { get; set; } = false;
+
+        public ServicesList(Constants.VisitorType visitorType, int visitorId)
         {
             InitializeComponent();
             fixedServices = new List<Service>();
             addedServices = new List<Service>();
             TypeOfVisitor = visitorType;
+            VisitorId = visitorId;
             if(TypeOfVisitor == Constants.VisitorType.Client)
             {
                 btnSaver.Visibility = Visibility.Collapsed;
                 table.CanUserAddRows = false;
                 table.IsReadOnly = true;
+                btnAddingService.Visibility = Visibility.Collapsed;
             }
         }
 
         Constants.VisitorType TypeOfVisitor { get; set; }
+        int VisitorId { get; set; }
         private List<Service> fixedServices { get; set; }
         private List<Service> addedServices { get; set; }
 
@@ -176,6 +182,35 @@ namespace Tour_agency
             
         }
 
+        private void addingServicesTable_Loaded(object sender, RoutedEventArgs e)
+        {
+            using(var agencyDbContext = new AgencyDbContext())
+            {
+                addingServicesTable.ItemsSource = agencyDbContext.AddingServices.ToList();
+                foreach(var item in addingServicesTable.Items)
+                {
+                    Model.AddingService addingServices = item as Model.AddingService;
+                    addingServices.Client = agencyDbContext.Clients.Find(addingServices.ClientId);
+                    addingServices.Tour = agencyDbContext.Tours.Find(addingServices.TourId);
+                    addingServices.Service = agencyDbContext.Services.Find(addingServices.ServiceId);
+                }
+            }
+
+            if(TypeOfVisitor == Constants.VisitorType.Client)
+            {
+                addingServicesTable.Columns[1].Visibility = Visibility.Collapsed;
+                addingServicesTable.Items.Filter = item => (item as AddingService).ClientId == VisitorId;
+            }
+
+        }
+
+        private void btnAddingService_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddingService) { return; }
+
+            var addingServiceWindow = new AddingServiceForm();
+            addingServiceWindow.Show();
+        }
     }
 
 }

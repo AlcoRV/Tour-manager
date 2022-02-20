@@ -75,6 +75,8 @@
                 Margin="30 0"
                 Content="Продать тур"
             Click="newSelling_Click"
+            x:Name="btnSelling"
+            Visibility="Collapsed"
             />
         
         <Button Grid.Column="1"
@@ -83,6 +85,8 @@
                 Margin="30 0"
                 Content="Выдать рассрочку"
                 Click="newInstallment_Click"
+                x:Name="btnInstallment"
+                Visibility="Collapsed"
                 />
 
     </Grid>

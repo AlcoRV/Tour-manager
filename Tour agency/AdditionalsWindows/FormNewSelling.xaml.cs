@@ -41,6 +41,7 @@ namespace Tour_agency
 
             Sellings = sellings;
             Visitor = visitor;
+            InstallmentsList.TourIsSelling = true;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -51,6 +52,7 @@ namespace Tour_agency
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            InstallmentsList.TourIsSelling = false;
         }
 
         private void btnSell_Click(object sender, RoutedEventArgs e)
@@ -65,6 +67,9 @@ namespace Tour_agency
                     agencyDbContext.SaveChanges();
                     btnSell.IsEnabled = false;
                     CloseInTime();
+                    message.Text = "Тур успешно продан!";
+                    message.Foreground = Brushes.White;
+                    message.Visibility = Visibility.Visible;
                 }
             }
             catch (Error error)
@@ -82,8 +87,9 @@ namespace Tour_agency
         {
             var timer = new DispatcherTimer();
             timer.Tick += (sender, e) => { Close(); };
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Interval = new TimeSpan(0, 0, 3);
             timer.Start();
+            InstallmentsList.TourIsSelling = false;
         }
 
         private Selling CreateNewSelling()

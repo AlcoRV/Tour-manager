@@ -1,0 +1,105 @@
+﻿<Page x:Class="Tour_agency.ServicesList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tour_agency"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Page2" Background="Transparent" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.75*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            
+            <DataGrid Grid.Row="1"
+                x:Name="table" ItemsSource="{Binding}"
+                  AutoGenerateColumns="False" 
+                  Loaded="DataGrid_Loaded"
+                  Width="500"
+                      Margin="5"
+                      Grid.Column="0"
+                      CellEditEnding="table_CellEditEnding"
+                      AddingNewItem="table_AddingNewItem"
+                      PreviewKeyDown="table_KeyDown"
+                      
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Price, StringFormat={}{0:C2}}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        <DataGrid Grid.Row="1" Grid.Column="1"
+                  Margin="5" IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  x:Name="addingServicesTable"
+                  Loaded="addingServicesTable_Loaded"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" />
+                <DataGridTextColumn Header="ФИО клиента" Binding="{Binding Path=Client.Name}" />
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Tour.Name}" />
+                <DataGridTextColumn Header="Услуга" Binding="{Binding Path=Service.Name}" />
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+        <Button x:Name="btnSaver"
+            VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="20"
+                Content="Сохранить изменения"
+                Grid.Column="0"
+                Click="btnServises_Click"
+                />
+
+        <Button x:Name="btnAddingService"
+            VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="20"
+                Content="Добавить услугу"
+                Grid.Column="1"
+                Click="btnAddingService_Click"
+                />
+
+        <TextBlock Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                    x:Name="message"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="10"
+                   Foreground="Red"
+                   FontSize="18"
+                   Visibility="Collapsed"
+                   />
+
+        <TextBlock 
+            Grid.RowSpan="2"
+            Text="Список услуг"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            FontSize="30"
+            Margin="20 60"
+            />
+
+        <TextBlock 
+            Grid.Column="1"
+            Grid.RowSpan="2"
+            Text="Заказанные услуги"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            FontSize="30"
+            Margin="60"
+            />
+
+    </Grid>
+</Page>

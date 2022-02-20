@@ -12,8 +12,8 @@ namespace Tour_agency
         public enum VisitorType
         {
             Error,
-            Manager,
-            Client
+            Client,
+            Manager
         }
 
     }

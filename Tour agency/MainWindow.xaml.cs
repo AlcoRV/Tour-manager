@@ -19,22 +19,17 @@ namespace Tour_agency
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public static bool PersonalDataIsShowing { get; set; } = false;
         Dictionary<String, Frame> mainContent;
-        Constants.VisitorType TypeOfVisitor = Constants.VisitorType.Manager;
-        int VisitorId = 1;
+        Constants.VisitorType TypeOfVisitor { get; set; }
+        int VisitorId { get; set; }
 
-    /*    public MainWindow(Constants.AccountId accountId)
-        {
-        }*/
-
-            public MainWindow(/*Constants.AccountId accountId*/)
+            public MainWindow(Constants.VisitorType visitorType, int accountId)
         {
             InitializeComponent();
-       //     this.accountId = /*accountId;*/ new Constants.AccountId
-       //     {
-   /*             id = 1,
-                visitorType = Constants.AccountId.VisitorType.Client
-            };*/
+            VisitorId = accountId;
+           TypeOfVisitor = visitorType;
 
             mainContent = new Dictionary<String, Frame>();
             mainContent["Список туров"] = new Frame();
@@ -44,21 +39,18 @@ namespace Tour_agency
             mainContent["Список туров"].MouseDown -= Grid_MouseDown;
             
 
-            mainContent["Список услуг"] = new Frame();
+            mainContent["Услуги"] = new Frame();
 
-            mainContent["Список услуг"].Content = new ServicesList(TypeOfVisitor);
-            mainContent["Список рассрочек"] = new Frame();
+            mainContent["Услуги"].Content = new ServicesList(TypeOfVisitor, VisitorId);
+            mainContent["Продажи и рассрочки"] = new Frame();
 
-            mainContent["Список рассрочек"].Content = new InstallmentsList(TypeOfVisitor, VisitorId);
+            mainContent["Продажи и рассрочки"].Content = new InstallmentsList(TypeOfVisitor, VisitorId);
 
             foreach (var item in yyy.Items)
             {
                 TabItem tItem = (TabItem)item;
                 tItem.GotFocus += ContextMenuOpening;
                 tItem.Background = Brushes.Transparent;
-
-                
-
             }
         }
 
@@ -86,11 +78,12 @@ namespace Tour_agency
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnPersonalData_Click(object sender, RoutedEventArgs e)
         {
+            if(PersonalDataIsShowing) { return; }
             var personalData = new PersonalData(TypeOfVisitor, VisitorId);
             personalData.Show();
         }

@@ -42,11 +42,12 @@ namespace Tour_agency
 
             Sellings = sellings;
             Installments = installments;
-
+            InstallmentsList.InstallmentAreIssued = true;
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            InstallmentsList.InstallmentAreIssued = false;
         }
 
         private void period_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -101,6 +102,7 @@ namespace Tour_agency
             timer.Tick += (sender, e) => { Close(); };
             timer.Interval = new TimeSpan(0, 0, 3);
             timer.Start();
+            InstallmentsList.InstallmentAreIssued = false;
         }
 
         private Installment CreateNewInstallment()

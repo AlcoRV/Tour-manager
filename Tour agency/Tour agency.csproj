@@ -200,18 +200,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdditionalsWindows\AddingServiceForm.xaml.cs">
+      <DependentUpon>AddingServiceForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AgencyDbContext.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Constants.cs" />
-    <Page Include="FormNewInstallment.xaml">
+    <Page Include="AdditionalsWindows\AddingServiceForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormNewSelling.xaml">
+    <Page Include="AdditionalsWindows\FormNewInstallment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InstallmentsList.xaml">
+    <Page Include="AdditionalsWindows\FormNewSelling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPages\InstallmentsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,19 +226,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonalData.xaml">
+    <Page Include="AdditionalsWindows\PersonalData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TourCard.xaml">
+    <Page Include="AdditionalsWindows\TourCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ToursList.xaml">
+    <Page Include="MainPages\ToursList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ServicesList.xaml">
+    <Page Include="MainPages\ServicesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,18 +250,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormNewInstallment.xaml.cs">
+    <Compile Include="AdditionalsWindows\FormNewInstallment.xaml.cs">
       <DependentUpon>FormNewInstallment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FormNewSelling.xaml.cs">
+    <Compile Include="AdditionalsWindows\FormNewSelling.xaml.cs">
       <DependentUpon>FormNewSelling.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InstallmentsList.xaml.cs">
+    <Compile Include="MainPages\InstallmentsList.xaml.cs">
       <DependentUpon>InstallmentsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AddingService.cs" />
     <Compile Include="Model\Base\Man.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Installment.cs" />
@@ -262,16 +270,16 @@
     <Compile Include="Model\Selling.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Tour.cs" />
-    <Compile Include="PersonalData.xaml.cs">
+    <Compile Include="AdditionalsWindows\PersonalData.xaml.cs">
       <DependentUpon>PersonalData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TourCard.xaml.cs">
+    <Compile Include="AdditionalsWindows\TourCard.xaml.cs">
       <DependentUpon>TourCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToursList.xaml.cs">
+    <Compile Include="MainPages\ToursList.xaml.cs">
       <DependentUpon>ToursList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ServicesList.xaml.cs">
+    <Compile Include="MainPages\ServicesList.xaml.cs">
       <DependentUpon>ServicesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
@@ -324,6 +332,7 @@
   <ItemGroup>
     <Resource Include="image\user.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

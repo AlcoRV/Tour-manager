@@ -71,5 +71,6 @@ namespace Tour_agency
         public DbSet<Service> Services { get; set; }
         public DbSet<Selling> Sellings { get; set; }
         public DbSet<Installment> Installments { get; set; }
+        public DbSet<AddingService> AddingServices { get; set; }
     }
 }

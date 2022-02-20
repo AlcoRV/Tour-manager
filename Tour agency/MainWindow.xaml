@@ -70,8 +70,8 @@
 
         <TabControl x:Name="yyy" Background="Transparent">
             <TabItem Header="Список туров" x:Name="ttt" IsSelected="True"/>
-            <TabItem Header="Список услуг" x:Name="www" IsSelected="False" />
-            <TabItem Header="Список рассрочек" x:Name="qqq" IsSelected="False"/>
+            <TabItem Header="Услуги" x:Name="www" IsSelected="False" />
+            <TabItem Header="Продажи и рассрочки" x:Name="qqq" IsSelected="False"/>
         </TabControl>
 
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"
@@ -97,7 +97,7 @@
 
 
       <Button HorizontalAlignment="Right" VerticalAlignment="Top"
-                Width="50" Height="50" Margin="30" Click="Button_Click">
+                Width="50" Height="50" Margin="30" Click="btnPersonalData_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="20">
