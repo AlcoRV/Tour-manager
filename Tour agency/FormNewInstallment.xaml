@@ -1,0 +1,118 @@
+﻿<Window x:Class="Tour_agency.FormNewInstallment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tour_agency"
+        mc:Ignorable="d"
+        Title="FormNewInstallment" Height="450" Width="500"
+        AllowsTransparency="True" WindowStyle="None"
+        Background="Transparent" ResizeMode="NoResize"
+        >
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="35" Opacity="0.7"
+                Grid.RowSpan="4" Grid.ColumnSpan="2"
+                 BorderThickness="1"
+           MouseDown="Border_MouseDown"
+            >
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#A1FFCE" Offset="0.0"/>
+                    <GradientStop Color="#FAFFD1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0"
+                                  Color="Black"/>
+            </Border.Effect>
+
+            </Border>
+
+            <Label Content="Рассрочка"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               Margin="10"
+               FontSize="40"
+               Grid.ColumnSpan="2"
+               />
+
+        <StackPanel Margin="10"
+            Grid.Row="1" Grid.RowSpan="3">
+            <Label Content="ФИО клиента:" 
+                   Margin="0 10"
+                   FontSize="20"
+                   />
+            <Label Content="Название тура:" 
+                   Margin="0 10"
+                   FontSize="20"/>
+            <Label Content="Дата:" 
+                   Margin="0 10"
+                   FontSize="20"/>
+            <Label Content="Срок:" 
+                   Margin="0 10"
+                   FontSize="20"/>
+        </StackPanel>
+
+        <StackPanel Margin="10" Grid.Column="1"
+            Grid.Row="1" Grid.RowSpan="3">
+            <ComboBox x:Name="client" Margin="0 10"
+                   FontSize="20" 
+                  />
+                <ComboBox x:Name="tour" Margin="0 10"
+                   FontSize="20" />
+
+                <DatePicker Name="dateInstallment" Margin="0 10"
+                        FontSize="20"
+                      
+                        />
+            
+                <TextBox x:Name="period" FontSize="20" 
+                     Margin="0 10" 
+                     PreviewTextInput="period_PreviewTextInput"
+                     PreviewKeyDown="period_PreviewKeyDown"
+                     />
+        </StackPanel>
+
+        <Button x:Name="btnClose" Content="X"
+                Background="Red"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Grid.Column="1"
+                Margin="15"
+                FontSize="18"
+                Click="btnClose_Click"
+                />
+
+        <Button Grid.Column="1"
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                Content="Выполнить продажу"
+                Click="btnSell_Click"
+                x:Name="btnSell"/>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Grid.RowSpan="2"
+               HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+               FontSize="15"
+               Foreground="White"
+               Text="При отсутствии даты будет считаться, что рассрочка была дана сегодня"
+               TextWrapping="Wrap"
+               x:Name="message"
+            />
+
+    </Grid>
+</Window>

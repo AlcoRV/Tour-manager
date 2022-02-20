@@ -57,7 +57,7 @@ namespace Tour_agency
         {
             try
             {
-                CheckSelling();
+                CheckSpaces();
                 using(var agencyDbContext = new AgencyDbContext())
                 {
                     var selling = CreateNewSelling();
@@ -88,21 +88,17 @@ namespace Tour_agency
 
         private Selling CreateNewSelling()
         {
-            int maxIndex = Sellings.Last().Id;
             Selling newSelling = new Selling()
             {
-              //  Client = client.SelectedItem as Client,
-               // Tour = tour.SelectedItem as Tour,
                 ClientId = (int)client.SelectedValue,
                 TourId = (int)tour.SelectedValue,
                 Date = dateSelling.SelectedDate ?? DateTime.Now,
-               // Manager = Visitor,
                 ManagerId = Visitor.Id
             };
             return newSelling;
         }
 
-        private void CheckSelling()
+        private void CheckSpaces()
         {
             if(client.SelectedItem is null)
             {

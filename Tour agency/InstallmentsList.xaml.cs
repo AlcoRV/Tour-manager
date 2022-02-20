@@ -121,5 +121,15 @@ namespace Tour_agency
                 newSelling.Show();
             }
         }
+
+        private void newInstallment_Click(object sender, RoutedEventArgs e)
+        {
+            using (var agencyDbContext = new AgencyDbContext())
+            {
+                var newInstallment = new FormNewInstallment(agencyDbContext.Sellings.ToList(), 
+                    agencyDbContext.Installments.ToList());
+                newInstallment.Show();
+            }
+        }
     }
 }

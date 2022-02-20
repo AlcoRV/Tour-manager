@@ -81,7 +81,9 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Margin="30 0"
-                Content="Выдать рассрочку"/>
+                Content="Выдать рассрочку"
+                Click="newInstallment_Click"
+                />
 
     </Grid>
     
