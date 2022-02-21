@@ -22,14 +22,16 @@ namespace Tour_agency.AdditionalsWindows
     public partial class AddingServiceForm : Window
     {
         List<Selling> Sellings { get; set; }
+        int VisitorId { get; set; }
 
-        public AddingServiceForm()
+        public AddingServiceForm(int visitorId)
         {
             InitializeComponent();
+            VisitorId = visitorId;
 
             using(var agencyDbContext = new AgencyDbContext())
             {
-                Sellings = agencyDbContext.Sellings.ToList();
+                Sellings = agencyDbContext.Sellings.ToList().Where(selling => selling.ManagerId == VisitorId).ToList();
                 var clientIds = Sellings.Select(selling => selling.ClientId).Distinct().ToList();
                 client.ItemsSource = agencyDbContext.Clients.ToList().Where(item => clientIds.Contains(item.Id));
                 var tourIds = Sellings.Select(selling => selling.TourId).Distinct().ToList();
@@ -83,7 +85,7 @@ namespace Tour_agency.AdditionalsWindows
         {
             var timer = new DispatcherTimer();
             timer.Tick += (sender, e) => { Close(); };
-            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             ServicesList.AddingService = false;
         }
@@ -120,7 +122,7 @@ namespace Tour_agency.AdditionalsWindows
             selling.TourId == (int)tour.SelectedValue))
             {
                 throw new Error(string.Format($"Ошибка! {(client.SelectedItem as Client).Name} не" +
-                    $" покупал тур {(tour.SelectedItem as Tour).Name} "));
+                    $" покупал/а тур {(tour.SelectedItem as Tour).Name} "));
             }
 
             if (IsReplay())
@@ -135,7 +137,7 @@ namespace Tour_agency.AdditionalsWindows
             using(var agencyDbContext = new AgencyDbContext())
             {
                 return agencyDbContext.AddingServices.ToList().Exists(adding => adding.ClientId == (int)client.SelectedValue &&
-            adding.TourId == (int)tour.SelectedValue);
+            adding.TourId == (int)tour.SelectedValue && adding.ServiceId == (int)service.SelectedValue);
             }
         }
 

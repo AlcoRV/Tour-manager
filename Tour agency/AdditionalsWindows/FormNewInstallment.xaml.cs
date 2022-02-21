@@ -26,23 +26,25 @@ namespace Tour_agency
         List<Selling> Sellings { get; set; }
         List<Installment> Installments { get; set; }
 
-        public FormNewInstallment(List<Selling> sellings, List<Installment> installments)
+        public FormNewInstallment(List<Selling> sellings, List<Installment> installments, int visitorId)
         {
             InitializeComponent();
-
-            using (var agencyDbContext = new AgencyDbContext())
-            {
-                client.ItemsSource = agencyDbContext.Clients.ToList();
-                client.DisplayMemberPath = "Name";
-                client.SelectedValuePath = "Id";
-                tour.ItemsSource = agencyDbContext.Tours.ToList();
-                tour.DisplayMemberPath = "Name";
-                tour.SelectedValuePath = "Id";
-            }
-
             Sellings = sellings;
             Installments = installments;
             InstallmentsList.InstallmentAreIssued = true;
+
+            using (var agencyDbContext = new AgencyDbContext())
+            {
+                var ownSellings = Sellings.Where(item => item.ManagerId == visitorId);
+                var clientIds = ownSellings.Select(item => item.ClientId).Distinct();
+                client.ItemsSource = agencyDbContext.Clients.ToList().Where(item => clientIds.Contains(item.Id));
+                client.DisplayMemberPath = "Name";
+                client.SelectedValuePath = "Id";
+                var tourIds = ownSellings.Select(item => item.TourId).Distinct();
+                tour.ItemsSource = agencyDbContext.Tours.ToList().Where(item => tourIds.Contains(item.Id));
+                tour.DisplayMemberPath = "Name";
+                tour.SelectedValuePath = "Id";
+            }
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +102,7 @@ namespace Tour_agency
         {
             var timer = new DispatcherTimer();
             timer.Tick += (sender, e) => { Close(); };
-            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             InstallmentsList.InstallmentAreIssued = false;
         }
@@ -111,7 +113,7 @@ namespace Tour_agency
             {
                 ClientId = (int)client.SelectedValue,
                 TourId = (int)tour.SelectedValue,
-                Date = dateInstallment.SelectedDate ?? DateTime.Now,
+                Date = DateTime.Now,
                 Period = period.Text.Length != 0 ? Convert.ToInt32(period.Text) : 365
             };
 
@@ -130,19 +132,11 @@ namespace Tour_agency
                 throw new Error("Ошибка! Тур не выбран");
             }
 
-            if (dateInstallment.SelectedDate is DateTime date)
-            {
-                if ((date - DateTime.Now).TotalDays < 0)
-                {
-                    throw new Error("Ошибка! Выберите актуальную дату");
-                }
-            }
-
             if(!Sellings.Exists(selling => selling.ClientId == (client.SelectedItem as Client).Id &&
             selling.TourId == (tour.SelectedItem as Tour).Id))
             {
                 throw new Error(string.Format($"Ошибка! Клиент {(client.SelectedItem as Client).Name} ранее " +
-                    $"не приобретал тур {(tour.SelectedItem as Tour).Name}"));
+                    $"не приобретал/а тур {(tour.SelectedItem as Tour).Name}"));
             }
 
             if (Installments.Exists(installment => installment.ClientId == (client.SelectedItem as Client).Id &&
@@ -152,7 +146,7 @@ namespace Tour_agency
                     $"уже была предоставлена рассрочка по туру {(tour.SelectedItem as Tour).Name}"));
             }
 
-            if(period.Text.Length != 0 && Convert.ToInt32(period.Text) <= 365)
+            if(period.Text.Length != 0 && Convert.ToInt32(period.Text) > 365)
             {
                 throw new Error("Ошибка! Введите срок не превышающий 365-ти дней");
             }

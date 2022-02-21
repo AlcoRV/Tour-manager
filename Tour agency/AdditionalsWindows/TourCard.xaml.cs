@@ -175,7 +175,7 @@ namespace Tour_agency
                 ToursList.TourIsSelected = false;
                 Close();
             };
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
 

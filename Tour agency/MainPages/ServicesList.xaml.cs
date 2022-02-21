@@ -189,7 +189,7 @@ namespace Tour_agency
                 addingServicesTable.ItemsSource = agencyDbContext.AddingServices.ToList();
                 foreach(var item in addingServicesTable.Items)
                 {
-                    Model.AddingService addingServices = item as Model.AddingService;
+                    AddingService addingServices = item as AddingService;
                     addingServices.Client = agencyDbContext.Clients.Find(addingServices.ClientId);
                     addingServices.Tour = agencyDbContext.Tours.Find(addingServices.TourId);
                     addingServices.Service = agencyDbContext.Services.Find(addingServices.ServiceId);
@@ -201,6 +201,16 @@ namespace Tour_agency
                 addingServicesTable.Columns[1].Visibility = Visibility.Collapsed;
                 addingServicesTable.Items.Filter = item => (item as AddingService).ClientId == VisitorId;
             }
+            else
+            {
+                using(var agencyDbContext = new AgencyDbContext())
+                {
+                    var sellings = agencyDbContext.Sellings.ToList().Where(selling => selling.ManagerId == VisitorId).ToList();
+                    addingServicesTable.Items.Filter = item => sellings.Exists(el =>
+                    (el as Selling).ClientId == (item as AddingService).ClientId &&
+                      (el as Selling).TourId == (item as AddingService).TourId);
+                }
+            }
 
         }
 
@@ -208,7 +218,7 @@ namespace Tour_agency
         {
             if (AddingService) { return; }
 
-            var addingServiceWindow = new AddingServiceForm();
+            var addingServiceWindow = new AddingServiceForm(VisitorId);
             addingServiceWindow.Show();
         }
     }

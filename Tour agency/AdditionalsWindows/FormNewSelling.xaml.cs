@@ -87,7 +87,7 @@ namespace Tour_agency
         {
             var timer = new DispatcherTimer();
             timer.Tick += (sender, e) => { Close(); };
-            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             InstallmentsList.TourIsSelling = false;
         }
@@ -98,7 +98,7 @@ namespace Tour_agency
             {
                 ClientId = (int)client.SelectedValue,
                 TourId = (int)tour.SelectedValue,
-                Date = dateSelling.SelectedDate ?? DateTime.Now,
+                Date = DateTime.Now,
                 ManagerId = Visitor.Id
             };
             return newSelling;
@@ -114,14 +114,6 @@ namespace Tour_agency
             if (tour.SelectedItem is null)
             {
                 throw new Error("Ошибка! Тур не выбран");
-            }
-
-            if(dateSelling.SelectedDate is DateTime date)
-            {
-                if((date - DateTime.Now).TotalDays < 0)
-                {
-                    throw new Error("Ошибка! Выберите актуальную дату");
-                }
             }
 
             if (Sellings.Exists(selling => selling.ClientId == (client.SelectedItem as Client).Id &&

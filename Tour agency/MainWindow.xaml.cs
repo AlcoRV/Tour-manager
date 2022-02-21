@@ -22,9 +22,8 @@ namespace Tour_agency
 
         public static bool PersonalDataIsShowing { get; set; } = false;
         Dictionary<String, Frame> mainContent;
-        Constants.VisitorType TypeOfVisitor { get; set; }
-        int VisitorId { get; set; }
-
+        Constants.VisitorType TypeOfVisitor { get; set; } = Constants.VisitorType.Manager;
+        int VisitorId { get; set; } = 7;
             public MainWindow(Constants.VisitorType visitorType, int accountId)
         {
             InitializeComponent();

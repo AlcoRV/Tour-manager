@@ -21,6 +21,25 @@
                HorizontalAlignment="Right" FontSize="20"
                    Margin="0 35 200 0"
                    FontWeight="UltraBold"/>
+          
+        <TextBlock
+            x:Name="sellingLabel" Text="Покупки:" VerticalAlignment="Top"
+                 FontSize="20" Margin="200 35 0 0"
+                 FontWeight="UltraBold"/>
+        <DataGrid x:Name="tableSelling" ItemsSource="{Binding}"
+              Loaded="tableSelling_Loaded" AutoGenerateColumns="False"
+                  Width="495" HorizontalAlignment="Left"
+                  Margin="0 70 0 0" 
+                  IsReadOnly="True"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn x:Name="nameColumn" Header="ФИО менеджера" Binding="{Binding Path=Manager.Name}"/>
+                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Tour.Name}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date,  StringFormat={}{0:d}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <DataGrid Grid.Column="1"
             x:Name="installmentTable" ItemsSource="{Binding}"
               Loaded="installmentTable_Loaded" AutoGenerateColumns="False"
@@ -47,25 +66,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
                 <DataGridTextColumn Header="Срок(в дн)" Binding="{Binding Path=Period}"/>
-            </DataGrid.Columns>
-        </DataGrid>              
-        <TextBlock
-            x:Name="sellingLabel" Text="Покупки:" VerticalAlignment="Top"
-                 FontSize="20" Margin="200 35 0 0"
-                 FontWeight="UltraBold"/>
-        <DataGrid x:Name="tableSelling" ItemsSource="{Binding}"
-              Loaded="tableSelling_Loaded" AutoGenerateColumns="False"
-                  Width="495" HorizontalAlignment="Left"
-                  Margin="0 70 0 0" 
-                  IsReadOnly="True"
-                  >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn x:Name="nameColumn" Header="ФИО менеджера" Binding="{Binding Path=Manager.Name}"/>
-                <DataGridTextColumn Header="Название тура" Binding="{Binding Path=Tour.Name}"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date,  StringFormat={}{0:d}}"/>
             </DataGrid.Columns>
         </DataGrid>
 

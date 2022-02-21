@@ -107,14 +107,18 @@ namespace Tour_agency
                     installment.Client = agencyDbContent.Clients.Find(installment.ClientId);
                     installment.Tour = agencyDbContent.Tours.Find(installment.TourId);
                 }
+            }
 
-                if (TypeOfVisitor == Constants.VisitorType.Client)
-                {
-                    installmentTable.Items.Filter = item => (item as Installment).ClientId == VisitorId;
-                }
+            if (TypeOfVisitor == Constants.VisitorType.Client)
+            {
+                installmentTable.Items.Filter = item => (item as Installment).ClientId == VisitorId;
+            }
+            else
+            {
+                installmentTable.Items.Filter = item => tableSelling.Items.OfType<Selling>().ToList().Exists(el =>
+                el.TourId == (item as Installment).TourId && el.ClientId == (item as Installment).ClientId);
+            }
 
-
-                }
         }
 
         private void newSelling_Click(object sender, RoutedEventArgs e)
@@ -136,7 +140,7 @@ namespace Tour_agency
             using (var agencyDbContext = new AgencyDbContext())
             {
                 var newInstallment = new FormNewInstallment(agencyDbContext.Sellings.ToList(), 
-                    agencyDbContext.Installments.ToList());
+                    agencyDbContext.Installments.ToList(), VisitorId);
                 newInstallment.Show();
             }
         }

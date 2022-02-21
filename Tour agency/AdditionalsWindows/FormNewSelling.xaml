@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_agency"
         mc:Ignorable="d"
-        Title="FormNewSelling" Height="450" Width="500"
+        Title="FormNewSelling" Height="400" Width="500"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         >
@@ -51,29 +51,22 @@
         <StackPanel Margin="10"
             Grid.Row="1" Grid.RowSpan="3">
             <Label Content="ФИО клиента:" 
-                   Margin="0 20"
+                   Margin="0 40"
                    FontSize="20"
                    />
             <Label Content="Название тура:" 
-                   Margin="0 20"
-                   FontSize="20"/>
-            <Label Content="Дата:" 
                    Margin="0 20"
                    FontSize="20"/>
         </StackPanel>
 
         <StackPanel Margin="10" Grid.Column="1"
             Grid.Row="1" Grid.RowSpan="3">
-            <ComboBox x:Name="client" Margin="0 20"
+            <ComboBox x:Name="client" Margin="0 40"
                    FontSize="20" 
                       SelectionChanged="cb_SelectionChanged"/>
             <ComboBox x:Name="tour" Margin="0 20"
                    FontSize="20"
                       SelectionChanged="cb_SelectionChanged"/>
-            <DatePicker Name="dateSelling" Margin="0 20"
-                        FontSize="20"
-                        SelectedDateChanged="cb_SelectionChanged"
-                        />
         </StackPanel>
 
         <Button x:Name="btnClose" Content="X"
@@ -99,7 +92,6 @@
                    VerticalAlignment="Center"
                FontSize="15"
                Foreground="White"
-               Text="При отсутствии даты будет считаться, что продажа произошла сегодня"
                TextWrapping="Wrap"
                x:Name="message"
             />
