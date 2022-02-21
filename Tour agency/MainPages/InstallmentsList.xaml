@@ -91,6 +91,28 @@
                 Visibility="Collapsed"
                 />
 
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                Width="50" Height="50" Margin="10">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="20">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/image/client.png"/>
+                        </Border.Background>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.7"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
     </Grid>
     
 </Page>

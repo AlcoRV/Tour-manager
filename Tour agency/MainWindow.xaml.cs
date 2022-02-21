@@ -24,11 +24,14 @@ namespace Tour_agency
         Dictionary<String, Frame> mainContent;
         Constants.VisitorType TypeOfVisitor { get; set; } = Constants.VisitorType.Manager;
         int VisitorId { get; set; } = 7;
-            public MainWindow(Constants.VisitorType visitorType, int accountId)
+
+        public MainWindow(Constants.VisitorType visitorType, int accountId) { }
+
+            public MainWindow(/*Constants.VisitorType visitorType, int accountId*/)
         {
             InitializeComponent();
-            VisitorId = accountId;
-           TypeOfVisitor = visitorType;
+        ///    VisitorId = accountId;
+           //TypeOfVisitor = visitorType;
 
             mainContent = new Dictionary<String, Frame>();
             mainContent["Список туров"] = new Frame();
