@@ -13,7 +13,7 @@ namespace Tour_agency.Model
     public class Client : Man
     {
         [Column("Номер")]
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override int Id { get; set; }
 
         [Column("ФИО")]

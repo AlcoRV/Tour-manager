@@ -12,14 +12,14 @@
     <Grid Margin="25">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.8*"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -48,25 +48,65 @@
                Grid.ColumnSpan="2"
                />
 
-        <StackPanel Margin="10"
-            Grid.Row="1" Grid.RowSpan="3">
+        <CheckBox Content="Клиент отсутствует в базе данных"
+                  Grid.Column="1"
+                  Grid.RowSpan="2"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Right"
+                  Margin="20"
+                  Checked="CheckBox_Checked"
+                  Unchecked="CheckBox_Unchecked"
+                  />
+
+        <StackPanel x:Name="labelPanel"
+            Margin="10 0"
+            Grid.Row="1" Grid.RowSpan="2"
+                    VerticalAlignment="Center">
             <Label Content="ФИО клиента:" 
-                   Margin="0 40"
                    FontSize="20"
+                   Margin="0 10"
+                   />
+            <Label x:Name="labelPhone"
+                Content="Номер телефона:" 
+                   FontSize="20"
+                   Margin="0 10"
+                   Visibility="Collapsed"
                    />
             <Label Content="Название тура:" 
-                   Margin="0 20"
-                   FontSize="20"/>
+                   FontSize="20"
+                   Margin="0 10"
+                   />
         </StackPanel>
 
-        <StackPanel Margin="10" Grid.Column="1"
-            Grid.Row="1" Grid.RowSpan="3">
-            <ComboBox x:Name="client" Margin="0 40"
+        <StackPanel x:Name="boxesPanel"
+            Grid.Column="1"
+            Grid.Row="1" Grid.RowSpan="2"
+                    VerticalAlignment="Center"
+                    Margin="0 0 10 0"
+                    >
+            <ComboBox x:Name="cbClient"
                    FontSize="20" 
-                      SelectionChanged="cb_SelectionChanged"/>
-            <ComboBox x:Name="tour" Margin="0 20"
+                      SelectionChanged="cb_SelectionChanged"
+                      Margin="0 10"
+                      />
+            <TextBox  x:Name="tbClient"
+                FontSize="20"
+                Visibility="Collapsed"
+                      Margin="0 10"/>
+            <TextBox x:Name="phone" Margin="0 10"
+                     Visibility="Collapsed"
+                     PreviewTextInput="phone_PreviewTextInput"
+                     TextChanged="phone_TextChanged"
+                     Text="+7(9"
+                     FontSize="20"
+                     PreviewKeyDown="phone_PreviewKeyDown"
+                     MaxLength="17"
+                     />
+            <ComboBox x:Name="tour"
                    FontSize="20"
-                      SelectionChanged="cb_SelectionChanged"/>
+                      SelectionChanged="cb_SelectionChanged"
+                      Margin="0 10"
+                      />
         </StackPanel>
 
         <Button x:Name="btnClose" Content="X"
