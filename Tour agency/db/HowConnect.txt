@@ -1,0 +1,9 @@
+﻿Move to MS SQL Server: 
+->   Select "Restore Database..." in settings of "Databases"
+->   Open menu "Device"
+->   Select BackUp-file in "Add" 
+->   Also you can select your own folders for DB in menu "Files" (left)
+
+To connect DB:
+->	 Move to "App.config" and add new ConnectionString or edit old one
+->   Move to "AgencyDbContext" and write your ConnectionString to constructor

@@ -9,7 +9,7 @@ namespace Tour_agency
     public class AgencyDbContext : DbContext
     {
         
-        public AgencyDbContext() : base("DbConnectionString")
+        public AgencyDbContext() : base("DbConnectionString2")
         { }
 
         public (Constants.VisitorType visitorType, int? id) GetVisitorData(string login, string password)
